@@ -19,6 +19,7 @@ Environment Variables:
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Simple, Logging, Client</PackageTags>
     <PackageReleaseNotes>Initial release of SimpleLoggingClient. Currently supporting Application MQ messaging logging.</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
