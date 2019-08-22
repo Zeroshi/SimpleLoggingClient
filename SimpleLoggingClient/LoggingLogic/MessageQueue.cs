@@ -1,10 +1,10 @@
 ﻿using SimpleLoggingClient.Helper;
 using SimpleLoggingClient.LoggingEntities;
-using SimpleLoggingClient.LoggingInterfaces;
 using SimpleLoggingClient.LoggingInterfaces.Dao;
 using SimpleLoggingClient.LoggingInterfaces.Logic;
+using SimpleLoggingInterfaces.Interfaces;
 using System;
-using static SimpleLoggingClient.LoggingInterfaces.Enums.Enums;
+using static SimpleLoggingInterfaces.Enums.EnumCollection;
 
 public class MessageQueue : IMessageQueue
 {

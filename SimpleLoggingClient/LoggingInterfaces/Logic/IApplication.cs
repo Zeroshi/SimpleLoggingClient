@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using static SimpleLoggingClient.LoggingInterfaces.Enums.Enums;
+using static SimpleLoggingInterfaces.Enums.EnumCollection;
 
 namespace SimpleLoggingClient.LoggingInterfaces.Logic
 {
