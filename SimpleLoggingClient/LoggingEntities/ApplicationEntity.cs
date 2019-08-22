@@ -1,6 +1,6 @@
-﻿using System;
-using SimpleLoggingClient.LoggingInterfaces;
-using static SimpleLoggingClient.LoggingInterfaces.Enums.Enums;
+﻿using SimpleLoggingInterfaces.Interfaces;
+using System;
+using static SimpleLoggingInterfaces.Enums.EnumCollection;
 
 namespace SimpleLoggingClient.LoggingEntities
 {

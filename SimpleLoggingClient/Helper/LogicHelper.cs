@@ -1,5 +1,5 @@
-﻿using SimpleLoggingClient.LoggingInterfaces;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using SimpleLoggingInterfaces.Interfaces;
 using System;
 using System.Text;
 using System.Threading.Tasks;
