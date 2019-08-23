@@ -19,8 +19,20 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'byBuildNumber'
+- task: NuGetCommand@2
+  inputs:
+    command: 'custom'
+    arguments: 'nuget setApiKey oy2ft2kkqqegkphyu64qpxwce4lrs2xu5dh7ovtfsr5efm'
     restoreSolution: '$(solution)'
-
+- task: NuGetCommand@2
+  inputs:
+    command: 'custom'
+    arguments: 'nuget push SimpleLoggingClient.nupkg -Source https://api.nuget.org/v3/index.json'
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
