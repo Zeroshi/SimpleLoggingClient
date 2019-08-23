@@ -1,5 +1,6 @@
 ﻿using SimpleLoggingClient.LoggingInterfaces.Logic;
 using SimpleLoggingClient.LoggingLogic;
+using System;
 
 namespace SimpleLoggingClient
 {

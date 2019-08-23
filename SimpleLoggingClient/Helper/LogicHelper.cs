@@ -3,11 +3,19 @@ using SimpleLoggingInterfaces.Interfaces;
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using static SimpleLoggingInterfaces.Enums.EnumCollection;
 
 namespace SimpleLoggingClient.Helper
 {
     public class LogicHelper
     {
+        private int _environmentLoggingLevel;
+
+        public LogicHelper()
+        {
+            _environmentLoggingLevel = Convert.ToInt32(Environment.GetEnvironmentVariable("Logging Level"));
+        }
+
         public void LogToPlatform(string messageType, string message, string note, bool logToPlatform)
         {
             if (logToPlatform)
@@ -68,6 +76,23 @@ namespace SimpleLoggingClient.Helper
             });
 
             return new byte[0];
+        }
+
+        public bool ShouldSendToQueue(LogLevel logLevel)
+        {
+            if (_environmentLoggingLevel > -1)
+            {
+                if (_environmentLoggingLevel <= Convert.ToInt32(LogLevel.Error))
+                    return true;
+
+                if (_environmentLoggingLevel <= Convert.ToInt32(LogLevel.Info))
+                    return true;
+
+                if (_environmentLoggingLevel <= Convert.ToInt32(LogLevel.Debug))
+                    return true;
+            }
+
+            return false;
         }
     }
 }

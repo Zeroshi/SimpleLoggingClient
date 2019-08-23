@@ -26,56 +26,68 @@ namespace SimpleLoggingClient.LoggingLogic
         {
             _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, null, writeToPlatform);
 
-            IApplicationEntity application = new ApplicationEntity();
-            application.Error = exception;
-            application.OnlyInnerException = innerExceptionOnly;
-            application.WrittenToPlatform = writeToPlatform;
-            application.LogLevel = logLevel;
+            if (_logicHelper.ShouldSendToQueue(logLevel))
+            {
+                IApplicationEntity application = new ApplicationEntity();
+                application.Error = exception;
+                application.OnlyInnerException = innerExceptionOnly;
+                application.WrittenToPlatform = writeToPlatform;
+                application.LogLevel = logLevel;
 
-            var queueMessage = await _logicHelper.MessageConversion(application);
-            _queueMessenger.SendMessage(queueMessage);
+                var queueMessage = await _logicHelper.MessageConversion(application);
+                _queueMessenger.SendMessage(queueMessage);
+            }
         }
 
         public async void Error(LogLevel logLevel, Exception exception, string note, bool innerExceptionOnly, bool writeToPlatform)
         {
             _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, null, writeToPlatform);
 
-            IApplicationEntity application = new ApplicationEntity();
-            application.Error = exception;
-            application.OnlyInnerException = innerExceptionOnly;
-            application.WrittenToPlatform = writeToPlatform;
-            application.LogLevel = logLevel;
+            if (_logicHelper.ShouldSendToQueue(logLevel))
+            {
+                IApplicationEntity application = new ApplicationEntity();
+                application.Error = exception;
+                application.OnlyInnerException = innerExceptionOnly;
+                application.WrittenToPlatform = writeToPlatform;
+                application.LogLevel = logLevel;
 
-            var queueMessage = await _logicHelper.MessageConversion(application);
-            _queueMessenger.SendMessage(queueMessage);
+                var queueMessage = await _logicHelper.MessageConversion(application);
+                _queueMessenger.SendMessage(queueMessage);
+            }
         }
 
         public async void Message(LogLevel logLevel, string message, string currentMethod, bool writeToPlatform)
         {
             _logicHelper.LogToPlatform(APPLICATION_MESSAGE, message, null, writeToPlatform);
 
-            IApplicationEntity application = new ApplicationEntity();
-            application.ApplicationMessage = message;
-            application.WrittenToPlatform = writeToPlatform;
-            application.LogLevel = logLevel;
-            application.CurrentMethod = currentMethod;
+            if (_logicHelper.ShouldSendToQueue(logLevel))
+            {
+                IApplicationEntity application = new ApplicationEntity();
+                application.ApplicationMessage = message;
+                application.WrittenToPlatform = writeToPlatform;
+                application.LogLevel = logLevel;
+                application.CurrentMethod = currentMethod;
 
-            var queueMessage = await _logicHelper.MessageConversion(application);
-            _queueMessenger.SendMessage(queueMessage);
+                var queueMessage = await _logicHelper.MessageConversion(application);
+                _queueMessenger.SendMessage(queueMessage);
+            }
         }
 
         public async void Message(LogLevel logLevel, string message, string note, string currentMethod, bool writeToPlatform)
         {
             _logicHelper.LogToPlatform(APPLICATION_MESSAGE, message, note, writeToPlatform);
 
-            IApplicationEntity application = new ApplicationEntity();
-            application.ApplicationMessage = message;
-            application.WrittenToPlatform = writeToPlatform;
-            application.LogLevel = logLevel;
-            application.CurrentMethod = currentMethod;
+            if (_logicHelper.ShouldSendToQueue(logLevel))
+            {
+                IApplicationEntity application = new ApplicationEntity();
+                application.ApplicationMessage = message;
+                application.WrittenToPlatform = writeToPlatform;
+                application.LogLevel = logLevel;
+                application.CurrentMethod = currentMethod;
 
-            var queueMessage = await _logicHelper.MessageConversion(application);
-            _queueMessenger.SendMessage(queueMessage);
+                var queueMessage = await _logicHelper.MessageConversion(application);
+                _queueMessenger.SendMessage(queueMessage);
+            }
         }
     }
 }
