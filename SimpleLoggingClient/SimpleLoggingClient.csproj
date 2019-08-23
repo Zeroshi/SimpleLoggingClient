@@ -13,14 +13,15 @@ Environment Variables:
 "Queue Port"
 "Queue Echange Name"
 "Queue Routing Key"
-"Queue Name"</Description>
+"Queue Name"
+"Logging Level" (int 0-2) debug, info, error</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Zeroshi/SimpleLoggingClient</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Simple, Logging, Client</PackageTags>
     <PackageReleaseNotes>Initial release of SimpleLoggingClient. Currently supporting Application MQ messaging logging.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
