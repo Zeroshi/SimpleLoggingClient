@@ -13,7 +13,8 @@ Environment Variables:
 "Queue Port"
 "Queue Echange Name"
 "Queue Routing Key"
-"Queue Name"</Description>
+"Queue Name"
+"Logging Level" (int 0-2) debug, info, error</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Zeroshi/SimpleLoggingClient</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
