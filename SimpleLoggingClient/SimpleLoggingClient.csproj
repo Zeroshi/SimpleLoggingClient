@@ -21,7 +21,7 @@ Environment Variables:
     <PackageTags>Simple, Logging, Client</PackageTags>
     <PackageReleaseNotes>Initial release of SimpleLoggingClient. Currently supporting Application MQ messaging logging.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
