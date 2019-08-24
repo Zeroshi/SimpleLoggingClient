@@ -11,12 +11,16 @@ namespace SimpleLoggingClient
 
         public IMessageQueue MessageQueue { get; set; }
         public IApplication Application { get; set; }
+        public ITransaction InternalTransaction { get; set; }
+        public ITransaction ExternalTransaction { get; set; }
 
         public Log()
         {
             var applicationName = Environment.GetEnvironmentVariable(APPLICATION_NAME);
             MessageQueue = new MessageQueue(applicationName);
             Application = new Application(applicationName);
+            InternalTransaction = new InternalTransaction(applicationName);
+            ExternalTransaction = new ExternalTransaction(applicationName);
         }
     }
 }

@@ -6,5 +6,7 @@ namespace SimpleLoggingClient.LoggingInterfaces
     {
         IMessageQueue MessageQueue { get; set; }
         IApplication Application { get; set; }
+        ITransaction InternalTransaction { get; set; }
+        ITransaction ExternalTransaction { get; set; }
     }
 }
