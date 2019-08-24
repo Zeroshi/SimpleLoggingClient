@@ -26,153 +26,202 @@ namespace SimpleLoggingClient.LoggingLogic
 
         public async void Error(LogLevel logLevel, Exception exception, bool innerExceptionOnly, bool writeToPlatform)
         {
-            _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, null, writeToPlatform);
-
-            if (_logicHelper.ShouldSendToQueue(logLevel))
+            try
             {
-                ITransactions transaction = new ExternalTransactionEntity();
-                transaction.Error = exception;
-                transaction.LogLevel = logLevel;
-                transaction.WrittenToPlatform = writeToPlatform;
-                transaction.OnlyInnerException = innerExceptionOnly;
-                transaction.TrasactionType = TransactionType.Internal;
-                transaction.Application = _applicationName;
-                transaction.DateTime = DateTime.UtcNow;
+                _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, null, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(transaction);
-                _queueMessenger.SendMessage(queueMessage);
+                if (_logicHelper.ShouldSendToQueue(logLevel))
+                {
+                    ITransactions transaction = new ExternalTransactionEntity();
+                    transaction.Error = exception;
+                    transaction.LogLevel = logLevel;
+                    transaction.WrittenToPlatform = writeToPlatform;
+                    transaction.OnlyInnerException = innerExceptionOnly;
+                    transaction.TrasactionType = TransactionType.Internal;
+                    transaction.Application = _applicationName;
+                    transaction.DateTime = DateTime.UtcNow;
+
+                    var queueMessage = await _logicHelper.MessageConversion(transaction);
+                    _queueMessenger.SendMessage(queueMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logicHelper.LogToPlatform(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, ex, false, null, true);
             }
         }
 
         public async void Error(LogLevel logLevel, Exception exception, string request, string response, bool innerExceptionOnly, bool writeToPlatform)
         {
-            _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, null, writeToPlatform);
-
-            if (_logicHelper.ShouldSendToQueue(logLevel))
+            try
             {
-                ITransactions transaction = new ExternalTransactionEntity();
-                transaction.Error = exception;
-                transaction.LogLevel = logLevel;
-                transaction.Request = request;
-                transaction.Reponse = response;
-                transaction.WrittenToPlatform = writeToPlatform;
-                transaction.OnlyInnerException = innerExceptionOnly;
-                transaction.TrasactionType = TransactionType.Internal;
-                transaction.Application = _applicationName;
-                transaction.DateTime = DateTime.UtcNow;
+                _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, null, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(transaction);
-                _queueMessenger.SendMessage(queueMessage);
+                if (_logicHelper.ShouldSendToQueue(logLevel))
+                {
+                    ITransactions transaction = new ExternalTransactionEntity();
+                    transaction.Error = exception;
+                    transaction.LogLevel = logLevel;
+                    transaction.Request = request;
+                    transaction.Reponse = response;
+                    transaction.WrittenToPlatform = writeToPlatform;
+                    transaction.OnlyInnerException = innerExceptionOnly;
+                    transaction.TrasactionType = TransactionType.Internal;
+                    transaction.Application = _applicationName;
+                    transaction.DateTime = DateTime.UtcNow;
+
+                    var queueMessage = await _logicHelper.MessageConversion(transaction);
+                    _queueMessenger.SendMessage(queueMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logicHelper.LogToPlatform(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, ex, false, null, true);
             }
         }
 
         public async void Error(LogLevel logLevel, Exception exception, string request, string response, string uri, bool innerExceptionOnly, bool writeToPlatform)
         {
-            _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, null, writeToPlatform);
-
-            if (_logicHelper.ShouldSendToQueue(logLevel))
+            try
             {
-                ITransactions transaction = new ExternalTransactionEntity();
-                transaction.Error = exception;
-                transaction.LogLevel = logLevel;
-                transaction.Request = request;
-                transaction.Reponse = response;
-                transaction.URI = uri;
-                transaction.WrittenToPlatform = writeToPlatform;
-                transaction.OnlyInnerException = innerExceptionOnly;
-                transaction.TrasactionType = TransactionType.Internal;
-                transaction.Application = _applicationName;
-                transaction.DateTime = DateTime.UtcNow;
+                _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, null, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(transaction);
-                _queueMessenger.SendMessage(queueMessage);
+                if (_logicHelper.ShouldSendToQueue(logLevel))
+                {
+                    ITransactions transaction = new ExternalTransactionEntity();
+                    transaction.Error = exception;
+                    transaction.LogLevel = logLevel;
+                    transaction.Request = request;
+                    transaction.Reponse = response;
+                    transaction.URI = uri;
+                    transaction.WrittenToPlatform = writeToPlatform;
+                    transaction.OnlyInnerException = innerExceptionOnly;
+                    transaction.TrasactionType = TransactionType.Internal;
+                    transaction.Application = _applicationName;
+                    transaction.DateTime = DateTime.UtcNow;
+
+                    var queueMessage = await _logicHelper.MessageConversion(transaction);
+                    _queueMessenger.SendMessage(queueMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logicHelper.LogToPlatform(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, ex, false, null, true);
             }
         }
 
         public async void Error(LogLevel logLevel, Exception exception, string request, string response, string uri, string note, bool innerExceptionOnly, bool writeToPlatform)
         {
-            _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, note, writeToPlatform);
-
-            if (_logicHelper.ShouldSendToQueue(logLevel))
+            try
             {
-                ITransactions transaction = new ExternalTransactionEntity();
-                transaction.Error = exception;
-                transaction.LogLevel = logLevel;
-                transaction.Request = request;
-                transaction.Reponse = response;
-                transaction.URI = uri;
-                transaction.Note = note;
-                transaction.WrittenToPlatform = writeToPlatform;
-                transaction.OnlyInnerException = innerExceptionOnly;
-                transaction.TrasactionType = TransactionType.Internal;
-                transaction.Application = _applicationName;
-                transaction.DateTime = DateTime.UtcNow;
+                _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, note, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(transaction);
-                _queueMessenger.SendMessage(queueMessage);
+                if (_logicHelper.ShouldSendToQueue(logLevel))
+                {
+                    ITransactions transaction = new ExternalTransactionEntity();
+                    transaction.Error = exception;
+                    transaction.LogLevel = logLevel;
+                    transaction.Request = request;
+                    transaction.Reponse = response;
+                    transaction.URI = uri;
+                    transaction.Note = note;
+                    transaction.WrittenToPlatform = writeToPlatform;
+                    transaction.OnlyInnerException = innerExceptionOnly;
+                    transaction.TrasactionType = TransactionType.Internal;
+                    transaction.Application = _applicationName;
+                    transaction.DateTime = DateTime.UtcNow;
+
+                    var queueMessage = await _logicHelper.MessageConversion(transaction);
+                    _queueMessenger.SendMessage(queueMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logicHelper.LogToPlatform(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, ex, false, null, true);
             }
         }
 
         public async void Message(LogLevel logLevel, string request, string response, bool writeToPlatform)
         {
-            _logicHelper.LogToPlatform(APPLICATION_MESSAGE, request, response, null, writeToPlatform);
-
-            if (_logicHelper.ShouldSendToQueue(logLevel))
+            try
             {
-                ITransactions transaction = new ExternalTransactionEntity();
-                transaction.TrasactionType = TransactionType.Internal;
-                transaction.Request = request;
-                transaction.Reponse = response;
-                transaction.WrittenToPlatform = writeToPlatform;
-                transaction.LogLevel = logLevel;
-                transaction.Application = _applicationName;
-                transaction.DateTime = DateTime.UtcNow;
+                _logicHelper.LogToPlatform(APPLICATION_MESSAGE, request, response, null, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(transaction);
-                _queueMessenger.SendMessage(queueMessage);
+                if (_logicHelper.ShouldSendToQueue(logLevel))
+                {
+                    ITransactions transaction = new ExternalTransactionEntity();
+                    transaction.TrasactionType = TransactionType.Internal;
+                    transaction.Request = request;
+                    transaction.Reponse = response;
+                    transaction.WrittenToPlatform = writeToPlatform;
+                    transaction.LogLevel = logLevel;
+                    transaction.Application = _applicationName;
+                    transaction.DateTime = DateTime.UtcNow;
+
+                    var queueMessage = await _logicHelper.MessageConversion(transaction);
+                    _queueMessenger.SendMessage(queueMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logicHelper.LogToPlatform(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, ex, false, null, true);
             }
         }
 
         public async void Message(LogLevel logLevel, string request, string response, string uri, bool writeToPlatform)
         {
-            _logicHelper.LogToPlatform(APPLICATION_MESSAGE, request, response, null, writeToPlatform);
-
-            if (_logicHelper.ShouldSendToQueue(logLevel))
+            try
             {
-                ITransactions transaction = new ExternalTransactionEntity();
-                transaction.TrasactionType = TransactionType.Internal;
-                transaction.Request = request;
-                transaction.Reponse = response;
-                transaction.URI = uri;
-                transaction.WrittenToPlatform = writeToPlatform;
-                transaction.LogLevel = logLevel;
-                transaction.Application = _applicationName;
-                transaction.DateTime = DateTime.UtcNow;
+                _logicHelper.LogToPlatform(APPLICATION_MESSAGE, request, response, null, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(transaction);
-                _queueMessenger.SendMessage(queueMessage);
+                if (_logicHelper.ShouldSendToQueue(logLevel))
+                {
+                    ITransactions transaction = new ExternalTransactionEntity();
+                    transaction.TrasactionType = TransactionType.Internal;
+                    transaction.Request = request;
+                    transaction.Reponse = response;
+                    transaction.URI = uri;
+                    transaction.WrittenToPlatform = writeToPlatform;
+                    transaction.LogLevel = logLevel;
+                    transaction.Application = _applicationName;
+                    transaction.DateTime = DateTime.UtcNow;
+
+                    var queueMessage = await _logicHelper.MessageConversion(transaction);
+                    _queueMessenger.SendMessage(queueMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logicHelper.LogToPlatform(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, ex, false, null, true);
             }
         }
 
         public async void Message(LogLevel logLevel, string request, string response, string uri, string note, bool writeToPlatform)
         {
-            _logicHelper.LogToPlatform(APPLICATION_MESSAGE, request, response, note, writeToPlatform);
-
-            if (_logicHelper.ShouldSendToQueue(logLevel))
+            try
             {
-                ITransactions transaction = new ExternalTransactionEntity();
-                transaction.TrasactionType = TransactionType.Internal;
-                transaction.Request = request;
-                transaction.Reponse = response;
-                transaction.URI = uri;
-                transaction.Note = note;
-                transaction.WrittenToPlatform = writeToPlatform;
-                transaction.LogLevel = logLevel;
-                transaction.Application = _applicationName;
-                transaction.DateTime = DateTime.UtcNow;
+                _logicHelper.LogToPlatform(APPLICATION_MESSAGE, request, response, note, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(transaction);
-                _queueMessenger.SendMessage(queueMessage);
+                if (_logicHelper.ShouldSendToQueue(logLevel))
+                {
+                    ITransactions transaction = new ExternalTransactionEntity();
+                    transaction.TrasactionType = TransactionType.Internal;
+                    transaction.Request = request;
+                    transaction.Reponse = response;
+                    transaction.URI = uri;
+                    transaction.Note = note;
+                    transaction.WrittenToPlatform = writeToPlatform;
+                    transaction.LogLevel = logLevel;
+                    transaction.Application = _applicationName;
+                    transaction.DateTime = DateTime.UtcNow;
+
+                    var queueMessage = await _logicHelper.MessageConversion(transaction);
+                    _queueMessenger.SendMessage(queueMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logicHelper.LogToPlatform(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, ex, false, null, true);
             }
         }
     }

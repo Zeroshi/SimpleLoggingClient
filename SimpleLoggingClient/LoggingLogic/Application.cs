@@ -26,77 +26,105 @@ namespace SimpleLoggingClient.LoggingLogic
 
         public async void Error(LogLevel logLevel, Exception exception, bool innerExceptionOnly, bool writeToPlatform)
         {
-            _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, null, writeToPlatform);
-
-            if (_logicHelper.ShouldSendToQueue(logLevel))
+            try
             {
-                IApplicationEntity application = new ApplicationEntity();
-                application.Error = exception;
-                application.OnlyInnerException = innerExceptionOnly;
-                application.WrittenToPlatform = writeToPlatform;
-                application.LogLevel = logLevel;
-                application.Application = _applicationName;
-                application.DateTime = DateTime.UtcNow;
+                _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, null, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(application);
-                _queueMessenger.SendMessage(queueMessage);
+                if (_logicHelper.ShouldSendToQueue(logLevel))
+                {
+                    IApplicationEntity application = new ApplicationEntity();
+                    application.Error = exception;
+                    application.OnlyInnerException = innerExceptionOnly;
+                    application.WrittenToPlatform = writeToPlatform;
+                    application.LogLevel = logLevel;
+                    application.Application = _applicationName;
+                    application.DateTime = DateTime.UtcNow;
+
+                    var queueMessage = await _logicHelper.MessageConversion(application);
+                    _queueMessenger.SendMessage(queueMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logicHelper.LogToPlatform(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, ex, false, null, true);
             }
         }
 
         public async void Error(LogLevel logLevel, Exception exception, string note, bool innerExceptionOnly, bool writeToPlatform)
         {
-            _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, null, writeToPlatform);
-
-            if (_logicHelper.ShouldSendToQueue(logLevel))
+            try
             {
-                IApplicationEntity application = new ApplicationEntity();
-                application.Error = exception;
-                application.OnlyInnerException = innerExceptionOnly;
-                application.WrittenToPlatform = writeToPlatform;
-                application.LogLevel = logLevel;
-                application.Application = _applicationName;
-                application.DateTime = DateTime.UtcNow;
+                _logicHelper.LogToPlatform(APPLICATION_ERROR, exception, innerExceptionOnly, null, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(application);
-                _queueMessenger.SendMessage(queueMessage);
+                if (_logicHelper.ShouldSendToQueue(logLevel))
+                {
+                    IApplicationEntity application = new ApplicationEntity();
+                    application.Error = exception;
+                    application.OnlyInnerException = innerExceptionOnly;
+                    application.WrittenToPlatform = writeToPlatform;
+                    application.LogLevel = logLevel;
+                    application.Application = _applicationName;
+                    application.DateTime = DateTime.UtcNow;
+
+                    var queueMessage = await _logicHelper.MessageConversion(application);
+                    _queueMessenger.SendMessage(queueMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logicHelper.LogToPlatform(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, ex, false, null, true);
             }
         }
 
         public async void Message(LogLevel logLevel, string message, string currentMethod, bool writeToPlatform)
         {
-            _logicHelper.LogToPlatform(APPLICATION_MESSAGE, message, null, writeToPlatform);
-
-            if (_logicHelper.ShouldSendToQueue(logLevel))
+            try
             {
-                IApplicationEntity application = new ApplicationEntity();
-                application.ApplicationMessage = message;
-                application.WrittenToPlatform = writeToPlatform;
-                application.LogLevel = logLevel;
-                application.CurrentMethod = currentMethod;
-                application.Application = _applicationName;
-                application.DateTime = DateTime.UtcNow;
+                _logicHelper.LogToPlatform(APPLICATION_MESSAGE, message, null, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(application);
-                _queueMessenger.SendMessage(queueMessage);
+                if (_logicHelper.ShouldSendToQueue(logLevel))
+                {
+                    IApplicationEntity application = new ApplicationEntity();
+                    application.ApplicationMessage = message;
+                    application.WrittenToPlatform = writeToPlatform;
+                    application.LogLevel = logLevel;
+                    application.CurrentMethod = currentMethod;
+                    application.Application = _applicationName;
+                    application.DateTime = DateTime.UtcNow;
+
+                    var queueMessage = await _logicHelper.MessageConversion(application);
+                    _queueMessenger.SendMessage(queueMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logicHelper.LogToPlatform(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, ex, false, null, true);
             }
         }
 
         public async void Message(LogLevel logLevel, string message, string note, string currentMethod, bool writeToPlatform)
         {
-            _logicHelper.LogToPlatform(APPLICATION_MESSAGE, message, note, writeToPlatform);
-
-            if (_logicHelper.ShouldSendToQueue(logLevel))
+            try
             {
-                IApplicationEntity application = new ApplicationEntity();
-                application.ApplicationMessage = message;
-                application.WrittenToPlatform = writeToPlatform;
-                application.LogLevel = logLevel;
-                application.CurrentMethod = currentMethod;
-                application.Application = _applicationName;
-                application.DateTime = DateTime.UtcNow;
+                _logicHelper.LogToPlatform(APPLICATION_MESSAGE, message, note, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(application);
-                _queueMessenger.SendMessage(queueMessage);
+                if (_logicHelper.ShouldSendToQueue(logLevel))
+                {
+                    IApplicationEntity application = new ApplicationEntity();
+                    application.ApplicationMessage = message;
+                    application.WrittenToPlatform = writeToPlatform;
+                    application.LogLevel = logLevel;
+                    application.CurrentMethod = currentMethod;
+                    application.Application = _applicationName;
+                    application.DateTime = DateTime.UtcNow;
+
+                    var queueMessage = await _logicHelper.MessageConversion(application);
+                    _queueMessenger.SendMessage(queueMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logicHelper.LogToPlatform(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, ex, false, null, true);
             }
         }
     }
