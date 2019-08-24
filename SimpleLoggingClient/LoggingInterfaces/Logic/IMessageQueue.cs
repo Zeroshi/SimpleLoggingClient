@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleLoggingInterfaces.Interfaces;
+using System;
 using static SimpleLoggingInterfaces.Enums.EnumCollection;
 
 namespace SimpleLoggingClient.LoggingInterfaces.Logic

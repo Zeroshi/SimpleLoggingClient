@@ -12,12 +12,14 @@ namespace SimpleLoggingClient.LoggingLogic
     {
         private LogicHelper _logicHelper;
         private IQueueMessenger _queueMessenger;
+        private readonly string _applicationName;
 
         private const string APPLICATION_MESSAGE = "Application Message";
         private const string APPLICATION_ERROR = "Application Error";
 
-        public Application()
+        public Application(string applicationName)
         {
+            _applicationName = applicationName;
             _logicHelper = new LogicHelper();
             _queueMessenger = new QueueMessenger();
         }
@@ -33,6 +35,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 application.OnlyInnerException = innerExceptionOnly;
                 application.WrittenToPlatform = writeToPlatform;
                 application.LogLevel = logLevel;
+                application.Application = _applicationName;
+                application.DateTime = DateTime.UtcNow;
 
                 var queueMessage = await _logicHelper.MessageConversion(application);
                 _queueMessenger.SendMessage(queueMessage);
@@ -50,6 +54,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 application.OnlyInnerException = innerExceptionOnly;
                 application.WrittenToPlatform = writeToPlatform;
                 application.LogLevel = logLevel;
+                application.Application = _applicationName;
+                application.DateTime = DateTime.UtcNow;
 
                 var queueMessage = await _logicHelper.MessageConversion(application);
                 _queueMessenger.SendMessage(queueMessage);
@@ -67,6 +73,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 application.WrittenToPlatform = writeToPlatform;
                 application.LogLevel = logLevel;
                 application.CurrentMethod = currentMethod;
+                application.Application = _applicationName;
+                application.DateTime = DateTime.UtcNow;
 
                 var queueMessage = await _logicHelper.MessageConversion(application);
                 _queueMessenger.SendMessage(queueMessage);
@@ -84,6 +92,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 application.WrittenToPlatform = writeToPlatform;
                 application.LogLevel = logLevel;
                 application.CurrentMethod = currentMethod;
+                application.Application = _applicationName;
+                application.DateTime = DateTime.UtcNow;
 
                 var queueMessage = await _logicHelper.MessageConversion(application);
                 _queueMessenger.SendMessage(queueMessage);
