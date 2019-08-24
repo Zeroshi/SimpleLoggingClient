@@ -1,13 +1,13 @@
-﻿using SimpleLoggingClient.LoggingInterfaces.Logic;
+﻿using SimpleLoggingClient.LoggingInterfaces;
+using SimpleLoggingClient.LoggingInterfaces.Logic;
 using SimpleLoggingClient.LoggingLogic;
-using System;
 
 namespace SimpleLoggingClient
 {
-    public class Log
+    public class Log : ILog
     {
-        public IMessageQueue MessageQueue;
-        public IApplication Application;
+        public IMessageQueue MessageQueue { get; set; }
+        public IApplication Application { get; set; }
 
         public Log()
         {
