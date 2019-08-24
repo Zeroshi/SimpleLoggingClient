@@ -20,9 +20,10 @@ Environment Variables:
     <RepositoryUrl>https://github.com/Zeroshi/SimpleLoggingClient</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Simple, Logging, Client</PackageTags>
-    <PackageReleaseNotes>Gathering UTC DateTime and Application Name</PackageReleaseNotes>
+    <PackageReleaseNotes>InternalTransaction and ExternalTransaction classes added for logging standards</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
+    <NeutralLanguage></NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
