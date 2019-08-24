@@ -10,13 +10,15 @@ public class MessageQueue : IMessageQueue
 {
     private LogicHelper _logicHelper;
     private IQueueMessenger _queueMessenger;
+    private readonly string _applicationName;
 
     private string PUSH_MESSAGE_TYPE = "Push Message";
     private string POP_MESSAGE_TYPE = "Pop Message";
     private string MQ_ERROR = "Message Queue Error";
 
-    public MessageQueue()
+    public MessageQueue(string applicationName)
     {
+        _applicationName = applicationName;
         _logicHelper = new LogicHelper();
         _queueMessenger = new QueueMessenger();
     }
@@ -31,6 +33,8 @@ public class MessageQueue : IMessageQueue
             messageQueue.PopMessage = message;
             messageQueue.WrittenToPlatform = writeToPlatform;
             messageQueue.LogLevel = logLevel;
+            messageQueue.Application = _applicationName;
+            messageQueue.DateTime = DateTime.UtcNow;
 
             var queueMessage = await _logicHelper.MessageConversion(messageQueue);
             _queueMessenger.SendMessage(queueMessage);
@@ -48,6 +52,8 @@ public class MessageQueue : IMessageQueue
             messageQueue.WrittenToPlatform = writeToPlatform;
             messageQueue.Note = note;
             messageQueue.LogLevel = logLevel;
+            messageQueue.Application = _applicationName;
+            messageQueue.DateTime = DateTime.UtcNow;
 
             var queueMessage = await _logicHelper.MessageConversion(messageQueue);
             _queueMessenger.SendMessage(queueMessage);
@@ -64,6 +70,8 @@ public class MessageQueue : IMessageQueue
             messageQueue.PushMessage = message;
             messageQueue.WrittenToPlatform = writeToPlatform;
             messageQueue.LogLevel = logLevel;
+            messageQueue.Application = _applicationName;
+            messageQueue.DateTime = DateTime.UtcNow;
 
             var queueMessage = await _logicHelper.MessageConversion(messageQueue);
             _queueMessenger.SendMessage(queueMessage);
@@ -81,6 +89,8 @@ public class MessageQueue : IMessageQueue
             messageQueue.WrittenToPlatform = writeToPlatform;
             messageQueue.Note = note;
             messageQueue.LogLevel = logLevel;
+            messageQueue.Application = _applicationName;
+            messageQueue.DateTime = DateTime.UtcNow;
 
             var queueMessage = await _logicHelper.MessageConversion(messageQueue);
             _queueMessenger.SendMessage(queueMessage);
@@ -98,6 +108,8 @@ public class MessageQueue : IMessageQueue
             messageQueue.WrittenToPlatform = writeToPlatform;
             messageQueue.OnlyInnerException = innerExceptionOnly;
             messageQueue.LogLevel = logLevel;
+            messageQueue.Application = _applicationName;
+            messageQueue.DateTime = DateTime.UtcNow;
 
             var queueMessage = await _logicHelper.MessageConversion(messageQueue);
             _queueMessenger.SendMessage(queueMessage);
@@ -116,6 +128,8 @@ public class MessageQueue : IMessageQueue
             messageQueue.WrittenToPlatform = writeToPlatform;
             messageQueue.OnlyInnerException = innerExceptionOnly;
             messageQueue.LogLevel = logLevel;
+            messageQueue.Application = _applicationName;
+            messageQueue.DateTime = DateTime.UtcNow;
 
             var queueMessage = await _logicHelper.MessageConversion(messageQueue);
             _queueMessenger.SendMessage(queueMessage);

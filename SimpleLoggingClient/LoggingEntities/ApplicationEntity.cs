@@ -13,5 +13,7 @@ namespace SimpleLoggingClient.LoggingEntities
         public string Note { get; set; }
         public LogLevel LogLevel { get; set; }
         public Exception Error { get; set; }
+        public string Application { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }
