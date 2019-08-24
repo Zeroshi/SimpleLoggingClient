@@ -25,7 +25,32 @@ namespace SimpleLoggingClient.Helper
 
                 if (!string.IsNullOrEmpty(note))
                 {
-                    sb.Append(" Note : " + note);
+                    sb.Append(" Note: " + note);
+                }
+
+                Console.WriteLine(sb.ToString());
+            }
+        }
+
+        public void LogToPlatform(string messageType, string request, string response, string note, bool logToPlatform)
+        {
+            if (logToPlatform)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                if (!string.IsNullOrEmpty(request))
+                {
+                    sb.Append("Request: " + request);
+                }
+
+                if (!string.IsNullOrEmpty(response))
+                {
+                    sb.Append(" Response: " + response);
+                }
+
+                if (!string.IsNullOrEmpty(note))
+                {
+                    sb.Append(" Note: " + note);
                 }
 
                 Console.WriteLine(sb.ToString());
@@ -49,7 +74,7 @@ namespace SimpleLoggingClient.Helper
 
                 if (!string.IsNullOrEmpty(note))
                 {
-                    sb.Append(" Note : " + note);
+                    sb.Append(" Note: " + note);
                 }
 
                 Console.WriteLine(sb.ToString());
@@ -68,6 +93,17 @@ namespace SimpleLoggingClient.Helper
         }
 
         public async Task<byte[]> MessageConversion(IMessageQueueEntity entity)
+        {
+            await Task.Run(() =>
+            {
+                var json = JsonConvert.SerializeObject(entity);
+                return Encoding.UTF8.GetBytes(json);
+            });
+
+            return new byte[0];
+        }
+
+        public async Task<byte[]> MessageConversion(ITransactions entity)
         {
             await Task.Run(() =>
             {
