@@ -19,11 +19,13 @@ Environment Variables:
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Zeroshi/SimpleLoggingClient</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
-    <PackageTags>Simple, Logging, Client</PackageTags>
-    <PackageReleaseNotes>Added unit tests for application and message queue. Optimized methods.</PackageReleaseNotes>
+    <PackageTags>Simple, Logging, Client, RabbitMQ, Enterprise Logging, Cloud Logging</PackageTags>
+    <PackageReleaseNotes>Corrected issue of Internal Transacation set as External. Unit tests added to all entity population</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.6</Version>
+    <Version>1.0.7</Version>
     <NeutralLanguage></NeutralLanguage>
+    <AssemblyVersion>1.0.7.0</AssemblyVersion>
+    <FileVersion>1.0.7.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

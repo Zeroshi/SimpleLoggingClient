@@ -175,7 +175,7 @@ namespace SimpleLoggingClient.LoggingLogic
             transaction.Note = string.IsNullOrWhiteSpace(note) ? string.Empty : note;
             transaction.WrittenToPlatform = writeToPlatform;
             transaction.OnlyInnerException = innerExceptionOnly;
-            transaction.TrasactionType = TransactionType.External;
+            transaction.TrasactionType = TransactionType.Internal;
             transaction.Application = _applicationName;
             transaction.DateTime = DateTime.UtcNow;
 
@@ -185,7 +185,7 @@ namespace SimpleLoggingClient.LoggingLogic
         public ITransactions PopulateTransactionEntity(LogLevel logLevel, string request, string response, string uri, string note, bool writeToPlatform)
         {
             ITransactions transaction = new ExternalTransactionEntity();
-            transaction.TrasactionType = TransactionType.External;
+            transaction.TrasactionType = TransactionType.Internal;
             transaction.Request = string.IsNullOrWhiteSpace(request) ? string.Empty : request;
             transaction.Reponse = string.IsNullOrWhiteSpace(response) ? string.Empty : response;
             transaction.URI = string.IsNullOrWhiteSpace(uri) ? string.Empty : uri;
