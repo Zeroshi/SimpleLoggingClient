@@ -213,25 +213,177 @@ namespace SimpleLoggingClient.Test
         [TestMethod]
         public void ExternalTransactionPopulation()
         {
-            //todo: complete test
+            ITransactions expected = new ExternalTransactionEntity();
+            expected.OnlyInnerException = true;
+            expected.WrittenToPlatform = true;
+            expected.Note = "note";
+            expected.LogLevel = LogLevel.Debug;
+            expected.Application = APPLICATION_NAME;
+            expected.Reponse = "Response";
+            expected.Request = "Request";
+            expected.TrasactionType = TransactionType.External;
+            expected.URI = "www.google.com";
+
+            var result = _externalTransaction.PopulateTransactionEntity(LogLevel.Debug, "Request", "Response", "www.google.com", "note", true);
+
+            Assert.AreEqual(expected.Application, result.Application);
+            Assert.AreEqual(expected.LogLevel, result.LogLevel);
+            Assert.AreEqual(expected.Note, result.Note);
+            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Request, result.Request);
+            Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
+            Assert.AreEqual(expected.URI, result.URI);
+            Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
+
+            result = _externalTransaction.PopulateTransactionEntity(LogLevel.Debug, null, null, null, null, true);
+
+            expected.Note = string.Empty;
+            expected.Reponse = string.Empty;
+            expected.Request = string.Empty;
+            expected.URI = string.Empty;
+
+            Assert.AreEqual(expected.Application, result.Application);
+            Assert.AreEqual(expected.LogLevel, result.LogLevel);
+            Assert.AreEqual(expected.Note, result.Note);
+            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Request, result.Request);
+            Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
+            Assert.AreEqual(expected.URI, result.URI);
+            Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
         }
 
         [TestMethod]
         public void ExternalTransactionErrorPopulation()
         {
-            //todo: complete test
+            ITransactions expected = new ExternalTransactionEntity();
+            expected.OnlyInnerException = true;
+            expected.WrittenToPlatform = true;
+            expected.Note = "note";
+            expected.LogLevel = LogLevel.Debug;
+            expected.Application = APPLICATION_NAME;
+            expected.Reponse = "Response";
+            expected.Request = "Request";
+            expected.TrasactionType = TransactionType.External;
+            expected.URI = "www.google.com";
+
+            var result = _externalTransaction.PopulateTransactionEntity(LogLevel.Debug, new Exception(), "Request", "Response", "www.google.com", "note", true, true);
+
+            Assert.AreEqual(expected.Application, result.Application);
+            Assert.AreEqual(expected.LogLevel, result.LogLevel);
+            Assert.AreEqual(expected.Note, result.Note);
+            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Request, result.Request);
+            Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
+            Assert.AreEqual(expected.URI, result.URI);
+            Assert.IsNotNull(result.Error);
+            Assert.AreEqual(expected.OnlyInnerException, result.OnlyInnerException);
+            Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
+
+            result = _externalTransaction.PopulateTransactionEntity(LogLevel.Debug, new Exception(), null, null, null, null, true, true);
+
+            expected.Note = string.Empty;
+            expected.Reponse = string.Empty;
+            expected.Request = string.Empty;
+            expected.URI = string.Empty;
+
+            Assert.AreEqual(expected.Application, result.Application);
+            Assert.AreEqual(expected.LogLevel, result.LogLevel);
+            Assert.AreEqual(expected.Note, result.Note);
+            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Request, result.Request);
+            Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
+            Assert.AreEqual(expected.URI, result.URI);
+            Assert.IsNotNull(result.Error);
+            Assert.AreEqual(expected.OnlyInnerException, result.OnlyInnerException);
+            Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
         }
 
         [TestMethod]
         public void InternalTransactionPopulation()
         {
-            //todo: complete test
+            ITransactions expected = new ExternalTransactionEntity();
+            expected.OnlyInnerException = true;
+            expected.WrittenToPlatform = true;
+            expected.Note = "note";
+            expected.LogLevel = LogLevel.Debug;
+            expected.Application = APPLICATION_NAME;
+            expected.Reponse = "Response";
+            expected.Request = "Request";
+            expected.TrasactionType = TransactionType.Internal;
+            expected.URI = "www.google.com";
+
+            var result = _internalTransaction.PopulateTransactionEntity(LogLevel.Debug, "Request", "Response", "www.google.com", "note", true);
+
+            Assert.AreEqual(expected.Application, result.Application);
+            Assert.AreEqual(expected.LogLevel, result.LogLevel);
+            Assert.AreEqual(expected.Note, result.Note);
+            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Request, result.Request);
+            Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
+            Assert.AreEqual(expected.URI, result.URI);
+            Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
+
+            result = _internalTransaction.PopulateTransactionEntity(LogLevel.Debug, null, null, null, null, true);
+
+            expected.Note = string.Empty;
+            expected.Reponse = string.Empty;
+            expected.Request = string.Empty;
+            expected.URI = string.Empty;
+
+            Assert.AreEqual(expected.Application, result.Application);
+            Assert.AreEqual(expected.LogLevel, result.LogLevel);
+            Assert.AreEqual(expected.Note, result.Note);
+            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Request, result.Request);
+            Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
+            Assert.AreEqual(expected.URI, result.URI);
+            Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
         }
 
         [TestMethod]
         public void InternalTransactionErrorPopulation()
         {
-            //todo: complete test
+            ITransactions expected = new ExternalTransactionEntity();
+            expected.OnlyInnerException = true;
+            expected.WrittenToPlatform = true;
+            expected.Note = "note";
+            expected.LogLevel = LogLevel.Debug;
+            expected.Application = APPLICATION_NAME;
+            expected.Reponse = "Response";
+            expected.Request = "Request";
+            expected.TrasactionType = TransactionType.Internal;
+            expected.URI = "www.google.com";
+
+            var result = _internalTransaction.PopulateTransactionEntity(LogLevel.Debug, new Exception(), "Request", "Response", "www.google.com", "note", true, true);
+
+            Assert.AreEqual(expected.Application, result.Application);
+            Assert.AreEqual(expected.LogLevel, result.LogLevel);
+            Assert.AreEqual(expected.Note, result.Note);
+            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Request, result.Request);
+            Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
+            Assert.AreEqual(expected.URI, result.URI);
+            Assert.IsNotNull(result.Error);
+            Assert.AreEqual(expected.OnlyInnerException, result.OnlyInnerException);
+            Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
+
+            result = _internalTransaction.PopulateTransactionEntity(LogLevel.Debug, new Exception(), null, null, null, null, true, true);
+
+            expected.Note = string.Empty;
+            expected.Reponse = string.Empty;
+            expected.Request = string.Empty;
+            expected.URI = string.Empty;
+
+            Assert.AreEqual(expected.Application, result.Application);
+            Assert.AreEqual(expected.LogLevel, result.LogLevel);
+            Assert.AreEqual(expected.Note, result.Note);
+            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Request, result.Request);
+            Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
+            Assert.AreEqual(expected.URI, result.URI);
+            Assert.IsNotNull(result.Error);
+            Assert.AreEqual(expected.OnlyInnerException, result.OnlyInnerException);
+            Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
         }
     }
 }
