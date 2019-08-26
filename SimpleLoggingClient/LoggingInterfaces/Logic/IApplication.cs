@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleLoggingInterfaces.Interfaces;
+using System;
 using static SimpleLoggingInterfaces.Enums.EnumCollection;
 
 namespace SimpleLoggingClient.LoggingInterfaces.Logic
@@ -12,5 +13,9 @@ namespace SimpleLoggingClient.LoggingInterfaces.Logic
         void Error(LogLevel logLevel, Exception exception, bool innerExceptionOnly, bool writeToPlatform);
 
         void Error(LogLevel logLevel, Exception exception, string note, bool innerExceptionOnly, bool writeToPlatform);
+
+        IApplicationEntity PopulateApplicationEntity(string message, bool writeToPlatform, LogLevel logLevel, string currentMethod, string note);
+
+        IApplicationEntity PopulateApplicationEntity(Exception exception, bool innerExceptionOnly, bool writeToPlatform, LogLevel logLevel, string note);
     }
 }
