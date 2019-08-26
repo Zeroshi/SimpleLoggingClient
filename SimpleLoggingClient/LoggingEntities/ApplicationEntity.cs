@@ -4,7 +4,7 @@ using static SimpleLoggingInterfaces.Enums.EnumCollection;
 
 namespace SimpleLoggingClient.LoggingEntities
 {
-    internal class ApplicationEntity : IApplicationEntity
+    public class ApplicationEntity : IApplicationEntity
     {
         public string ApplicationMessage { get; set; }
         public string CurrentMethod { get; set; }

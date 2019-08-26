@@ -5,7 +5,7 @@
     <Authors>Thomas Nelson</Authors>
     <Description>Simple logging client. Used to log items directly to the platform, via Console.WriteLine(). Also sends messages to RabbitMQ to be picked up by a service that will break down the messages for analysis as needed.
 
-Environment Variables: 
+Environment Variables:
 "Queue Hostname"
 "Queue Username"
 "Queue Password"
@@ -20,9 +20,9 @@ Environment Variables:
     <RepositoryUrl>https://github.com/Zeroshi/SimpleLoggingClient</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Simple, Logging, Client</PackageTags>
-    <PackageReleaseNotes>InternalTransaction and ExternalTransaction classes added for logging standards</PackageReleaseNotes>
+    <PackageReleaseNotes>Added unit tests for application and message queue. Optimized methods.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <NeutralLanguage></NeutralLanguage>
   </PropertyGroup>
 

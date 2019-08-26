@@ -4,7 +4,7 @@ using System;
 
 namespace SimpleLoggingClient.LoggingEntities
 {
-    internal class ExternalTransactionEntity : ITransactions
+    public class ExternalTransactionEntity : ITransactions
     {
         public EnumCollection.TransactionType TrasactionType { get; set; }
         public string Request { get; set; }

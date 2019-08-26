@@ -17,5 +17,9 @@ namespace SimpleLoggingClient.LoggingInterfaces.Logic
         void Error(LogLevel logLevel, Exception exception, bool innerExceptionOnly, bool writeToPlatform);
 
         void Error(LogLevel logLevel, Exception exception, string note, bool innerExceptionOnly, bool writeToPlatform);
+
+        IMessageQueueEntity PopulateMessageQueueEntity(LogLevel logLevel, string popMessage, string pushMessage, string note, bool writeToPlatform);
+
+        IMessageQueueEntity PopulateMessageQueueEntity(LogLevel logLevel, Exception exception, string note, bool innerExceptionOnly, bool writeToPlatform);
     }
 }

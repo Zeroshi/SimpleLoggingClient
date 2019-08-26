@@ -4,7 +4,7 @@ using static SimpleLoggingInterfaces.Enums.EnumCollection;
 
 namespace SimpleLoggingClient.LoggingEntities
 {
-    internal class MessageQueueEntity : IMessageQueueEntity
+    public class MessageQueueEntity : IMessageQueueEntity
     {
         public string PopMessage { get; set; }
         public string PushMessage { get; set; }
