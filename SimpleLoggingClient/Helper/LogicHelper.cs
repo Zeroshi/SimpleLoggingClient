@@ -9,7 +9,7 @@ namespace SimpleLoggingClient.Helper
 {
     public class LogicHelper
     {
-        private int _environmentLoggingLevel;
+        private readonly int _environmentLoggingLevel;
 
         public LogicHelper()
         {
@@ -118,14 +118,29 @@ namespace SimpleLoggingClient.Helper
         {
             if (_environmentLoggingLevel > -1)
             {
-                if (_environmentLoggingLevel <= Convert.ToInt32(LogLevel.Error))
-                    return true;
+                switch (logLevel)
+                {
+                    case LogLevel.Debug:
+                        if (_environmentLoggingLevel == Convert.ToInt32(LogLevel.Debug) ||
+                            _environmentLoggingLevel == Convert.ToInt32(LogLevel.Info) ||
+                            _environmentLoggingLevel == Convert.ToInt32(LogLevel.Error))
+                        { return true; }
+                        break;
 
-                if (_environmentLoggingLevel <= Convert.ToInt32(LogLevel.Info))
-                    return true;
+                    case LogLevel.Info:
+                        if (_environmentLoggingLevel == Convert.ToInt32(LogLevel.Info) ||
+                            _environmentLoggingLevel == Convert.ToInt32(LogLevel.Error))
+                        { return true; }
+                        break;
 
-                if (_environmentLoggingLevel <= Convert.ToInt32(LogLevel.Debug))
-                    return true;
+                    case LogLevel.Error:
+                        if (_environmentLoggingLevel == Convert.ToInt32(LogLevel.Error))
+                        { return true; }
+                        break;
+
+                    default:
+                        return false;
+                }
             }
 
             return false;
