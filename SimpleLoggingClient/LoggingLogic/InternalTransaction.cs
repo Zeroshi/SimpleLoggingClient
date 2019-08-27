@@ -170,7 +170,7 @@ namespace SimpleLoggingClient.LoggingLogic
             transaction.Error = exception;
             transaction.LogLevel = logLevel;
             transaction.Request = string.IsNullOrWhiteSpace(request) ? string.Empty : request;
-            transaction.Reponse = string.IsNullOrWhiteSpace(response) ? string.Empty : response;
+            transaction.Response = string.IsNullOrWhiteSpace(response) ? string.Empty : response;
             transaction.URI = string.IsNullOrWhiteSpace(uri) ? string.Empty : uri;
             transaction.Note = string.IsNullOrWhiteSpace(note) ? string.Empty : note;
             transaction.WrittenToPlatform = writeToPlatform;
@@ -187,7 +187,7 @@ namespace SimpleLoggingClient.LoggingLogic
             ITransactions transaction = new ExternalTransactionEntity();
             transaction.TrasactionType = TransactionType.Internal;
             transaction.Request = string.IsNullOrWhiteSpace(request) ? string.Empty : request;
-            transaction.Reponse = string.IsNullOrWhiteSpace(response) ? string.Empty : response;
+            transaction.Response = string.IsNullOrWhiteSpace(response) ? string.Empty : response;
             transaction.URI = string.IsNullOrWhiteSpace(uri) ? string.Empty : uri;
             transaction.Note = string.IsNullOrWhiteSpace(note) ? string.Empty : note;
             transaction.WrittenToPlatform = writeToPlatform;

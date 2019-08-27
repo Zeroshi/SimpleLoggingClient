@@ -14,15 +14,15 @@ Environment Variables:
 "Queue Echange Name"
 "Queue Routing Key"
 "Queue Name"
-"Logging Level" (int 0-2) debug, info, error
+"Logging Level" (int 0-3) Debug, Info, Error, Off
 "Application Name"</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Zeroshi/SimpleLoggingClient</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Simple, Logging, Client, RabbitMQ, Enterprise Logging, Cloud Logging</PackageTags>
-    <PackageReleaseNotes>Corrected issue of Internal Transacation set as External. Unit tests added to all entity population</PackageReleaseNotes>
+    <PackageReleaseNotes>Added the ability to turn off logging to the Queues. This is set with LogLevel.Off</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.7</Version>
+    <Version>1.0.8</Version>
     <NeutralLanguage></NeutralLanguage>
     <AssemblyVersion>1.0.7.0</AssemblyVersion>
     <FileVersion>1.0.7.0</FileVersion>
@@ -31,6 +31,6 @@ Environment Variables:
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
-    <PackageReference Include="SimpleLoggingInterfaces" Version="1.1.0" />
+    <PackageReference Include="SimpleLoggingInterfaces" Version="1.1.2" />
   </ItemGroup>
 </Project>
