@@ -116,7 +116,7 @@ namespace SimpleLoggingClient.Helper
 
         public bool ShouldSendToQueue(LogLevel logLevel)
         {
-            if (_environmentLoggingLevel > -1)
+            if (_environmentLoggingLevel > -1 || _environmentLoggingLevel != Convert.ToInt32(LogLevel.Off))
             {
                 switch (logLevel)
                 {
