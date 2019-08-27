@@ -219,7 +219,7 @@ namespace SimpleLoggingClient.Test
             expected.Note = "note";
             expected.LogLevel = LogLevel.Debug;
             expected.Application = APPLICATION_NAME;
-            expected.Reponse = "Response";
+            expected.Response = "Response";
             expected.Request = "Request";
             expected.TrasactionType = TransactionType.External;
             expected.URI = "www.google.com";
@@ -229,7 +229,7 @@ namespace SimpleLoggingClient.Test
             Assert.AreEqual(expected.Application, result.Application);
             Assert.AreEqual(expected.LogLevel, result.LogLevel);
             Assert.AreEqual(expected.Note, result.Note);
-            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Response, result.Response);
             Assert.AreEqual(expected.Request, result.Request);
             Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
             Assert.AreEqual(expected.URI, result.URI);
@@ -238,14 +238,14 @@ namespace SimpleLoggingClient.Test
             result = _externalTransaction.PopulateTransactionEntity(LogLevel.Debug, null, null, null, null, true);
 
             expected.Note = string.Empty;
-            expected.Reponse = string.Empty;
+            expected.Response = string.Empty;
             expected.Request = string.Empty;
             expected.URI = string.Empty;
 
             Assert.AreEqual(expected.Application, result.Application);
             Assert.AreEqual(expected.LogLevel, result.LogLevel);
             Assert.AreEqual(expected.Note, result.Note);
-            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Response, result.Response);
             Assert.AreEqual(expected.Request, result.Request);
             Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
             Assert.AreEqual(expected.URI, result.URI);
@@ -261,7 +261,7 @@ namespace SimpleLoggingClient.Test
             expected.Note = "note";
             expected.LogLevel = LogLevel.Debug;
             expected.Application = APPLICATION_NAME;
-            expected.Reponse = "Response";
+            expected.Response = "Response";
             expected.Request = "Request";
             expected.TrasactionType = TransactionType.External;
             expected.URI = "www.google.com";
@@ -271,7 +271,7 @@ namespace SimpleLoggingClient.Test
             Assert.AreEqual(expected.Application, result.Application);
             Assert.AreEqual(expected.LogLevel, result.LogLevel);
             Assert.AreEqual(expected.Note, result.Note);
-            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Response, result.Response);
             Assert.AreEqual(expected.Request, result.Request);
             Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
             Assert.AreEqual(expected.URI, result.URI);
@@ -282,14 +282,14 @@ namespace SimpleLoggingClient.Test
             result = _externalTransaction.PopulateTransactionEntity(LogLevel.Debug, new Exception(), null, null, null, null, true, true);
 
             expected.Note = string.Empty;
-            expected.Reponse = string.Empty;
+            expected.Response = string.Empty;
             expected.Request = string.Empty;
             expected.URI = string.Empty;
 
             Assert.AreEqual(expected.Application, result.Application);
             Assert.AreEqual(expected.LogLevel, result.LogLevel);
             Assert.AreEqual(expected.Note, result.Note);
-            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Response, result.Response);
             Assert.AreEqual(expected.Request, result.Request);
             Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
             Assert.AreEqual(expected.URI, result.URI);
@@ -307,7 +307,7 @@ namespace SimpleLoggingClient.Test
             expected.Note = "note";
             expected.LogLevel = LogLevel.Debug;
             expected.Application = APPLICATION_NAME;
-            expected.Reponse = "Response";
+            expected.Response = "Response";
             expected.Request = "Request";
             expected.TrasactionType = TransactionType.Internal;
             expected.URI = "www.google.com";
@@ -317,7 +317,7 @@ namespace SimpleLoggingClient.Test
             Assert.AreEqual(expected.Application, result.Application);
             Assert.AreEqual(expected.LogLevel, result.LogLevel);
             Assert.AreEqual(expected.Note, result.Note);
-            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Response, result.Response);
             Assert.AreEqual(expected.Request, result.Request);
             Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
             Assert.AreEqual(expected.URI, result.URI);
@@ -326,14 +326,14 @@ namespace SimpleLoggingClient.Test
             result = _internalTransaction.PopulateTransactionEntity(LogLevel.Debug, null, null, null, null, true);
 
             expected.Note = string.Empty;
-            expected.Reponse = string.Empty;
+            expected.Response = string.Empty;
             expected.Request = string.Empty;
             expected.URI = string.Empty;
 
             Assert.AreEqual(expected.Application, result.Application);
             Assert.AreEqual(expected.LogLevel, result.LogLevel);
             Assert.AreEqual(expected.Note, result.Note);
-            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Response, result.Response);
             Assert.AreEqual(expected.Request, result.Request);
             Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
             Assert.AreEqual(expected.URI, result.URI);
@@ -349,7 +349,7 @@ namespace SimpleLoggingClient.Test
             expected.Note = "note";
             expected.LogLevel = LogLevel.Debug;
             expected.Application = APPLICATION_NAME;
-            expected.Reponse = "Response";
+            expected.Response = "Response";
             expected.Request = "Request";
             expected.TrasactionType = TransactionType.Internal;
             expected.URI = "www.google.com";
@@ -359,7 +359,7 @@ namespace SimpleLoggingClient.Test
             Assert.AreEqual(expected.Application, result.Application);
             Assert.AreEqual(expected.LogLevel, result.LogLevel);
             Assert.AreEqual(expected.Note, result.Note);
-            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Response, result.Response);
             Assert.AreEqual(expected.Request, result.Request);
             Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
             Assert.AreEqual(expected.URI, result.URI);
@@ -370,14 +370,14 @@ namespace SimpleLoggingClient.Test
             result = _internalTransaction.PopulateTransactionEntity(LogLevel.Debug, new Exception(), null, null, null, null, true, true);
 
             expected.Note = string.Empty;
-            expected.Reponse = string.Empty;
+            expected.Response = string.Empty;
             expected.Request = string.Empty;
             expected.URI = string.Empty;
 
             Assert.AreEqual(expected.Application, result.Application);
             Assert.AreEqual(expected.LogLevel, result.LogLevel);
             Assert.AreEqual(expected.Note, result.Note);
-            Assert.AreEqual(expected.Reponse, result.Reponse);
+            Assert.AreEqual(expected.Response, result.Response);
             Assert.AreEqual(expected.Request, result.Request);
             Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
             Assert.AreEqual(expected.URI, result.URI);
