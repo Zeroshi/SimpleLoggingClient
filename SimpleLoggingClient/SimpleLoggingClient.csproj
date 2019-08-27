@@ -20,12 +20,12 @@ Environment Variables:
     <RepositoryUrl>https://github.com/Zeroshi/SimpleLoggingClient</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Simple, Logging, Client, RabbitMQ, Enterprise, Cloud</PackageTags>
-    <PackageReleaseNotes>Bug Fix</PackageReleaseNotes>
+    <PackageReleaseNotes>Corrected LogLevel logic. Messages will only be sent during correct logging level events</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.9</Version>
+    <Version>1.0.10</Version>
     <NeutralLanguage></NeutralLanguage>
-    <AssemblyVersion>1.0.9.0</AssemblyVersion>
-    <FileVersion>1.0.9.0</FileVersion>
+    <AssemblyVersion>1.0.10.0</AssemblyVersion>
+    <FileVersion>1.0.10.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
