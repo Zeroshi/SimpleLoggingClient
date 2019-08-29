@@ -116,6 +116,17 @@ namespace SimpleLoggingClient.Helper
             return new byte[0];
         }
 
+        public async Task<byte[]> MessageConversion(IRelationalDatabaseEntity entity)
+        {
+            await Task.Run(() =>
+            {
+                var json = JsonConvert.SerializeObject(entity);
+                return MessageFormatting(json);
+            });
+
+            return new byte[0];
+        }
+
         private byte[] MessageFormatting(string message)
         {
             var encodedMessage = Encoding.UTF8.GetBytes(message);

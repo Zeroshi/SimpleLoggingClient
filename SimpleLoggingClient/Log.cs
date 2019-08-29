@@ -13,6 +13,7 @@ namespace SimpleLoggingClient
         public IApplication Application { get; set; }
         public ITransaction InternalTransaction { get; set; }
         public ITransaction ExternalTransaction { get; set; }
+        public IRelationalDatabase RelationalDatabase { get; set; }
 
         public Log()
         {
@@ -21,6 +22,7 @@ namespace SimpleLoggingClient
             Application = new Application(applicationName);
             InternalTransaction = new InternalTransaction(applicationName);
             ExternalTransaction = new ExternalTransaction(applicationName);
+            RelationalDatabase = new RelationalDatabase(applicationName);
         }
     }
 }

@@ -15,23 +15,18 @@ Environment Variables:
 "Queue_Routing_Key" : string
 "Queue_Name" : string
 "Logging_Level" : (int 0-3) Debug, Info, Error, Off
-"Application_Name" : string 
+"Application_Name" : string
 "Is_Encrypted" : boolean</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Zeroshi/SimpleLoggingClient</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Simple, Logging, Client, RabbitMQ, Enterprise, Cloud</PackageTags>
-    <PackageReleaseNotes>Added Updated SimpleLoggingInterfaces which includes IRelationalDatabaseEntity
-
-Also added option for encryption.
-Environment Names have been updated
-
-RelationalDatabase logging will be added to the client in the next nuget package.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added RelationalDataBase logging</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <NeutralLanguage></NeutralLanguage>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
