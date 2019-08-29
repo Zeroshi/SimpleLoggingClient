@@ -17,6 +17,7 @@ namespace SimpleLoggingClient.Test
         private ITransaction _externalTransaction;
         private IApplication _application;
         private IMessageQueue _messageQueue;
+        private IRelationalDatabase _relationalDatabase;
 
         public SimpleLoggingTests()
         {
@@ -24,6 +25,7 @@ namespace SimpleLoggingClient.Test
             _externalTransaction = new ExternalTransaction(APPLICATION_NAME);
             _application = new Application(APPLICATION_NAME);
             _messageQueue = new MessageQueue(APPLICATION_NAME);
+            _relationalDatabase = new RelationalDatabase(APPLICATION_NAME);
         }
 
         [TestMethod]
@@ -381,6 +383,74 @@ namespace SimpleLoggingClient.Test
             Assert.AreEqual(expected.Request, result.Request);
             Assert.AreEqual(expected.TrasactionType, result.TrasactionType);
             Assert.AreEqual(expected.URI, result.URI);
+            Assert.IsNotNull(result.Error);
+            Assert.AreEqual(expected.OnlyInnerException, result.OnlyInnerException);
+            Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
+        }
+
+        [TestMethod]
+        public void RelationalDatabasePopulation()
+        {
+            IRelationalDatabaseEntity expected = new RelationalDatabaseEntity();
+            expected.OnlyInnerException = true;
+            expected.WrittenToPlatform = true;
+            expected.Note = "note";
+            expected.LogLevel = LogLevel.Debug;
+            expected.Application = APPLICATION_NAME;
+            expected.Query = "Query";
+            expected.QueryResult = "Result";
+
+            var result = _relationalDatabase.PopulateRelationalDatabaseEntity(LogLevel.Debug, "Query", "Result", "note", true);
+
+            Assert.AreEqual(expected.Application, result.Application);
+            Assert.AreEqual(expected.LogLevel, result.LogLevel);
+            Assert.AreEqual(expected.Note, result.Note);
+            Assert.AreEqual(expected.Query, result.Query);
+            Assert.AreEqual(expected.QueryResult, result.QueryResult);
+            Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
+
+            result = _relationalDatabase.PopulateRelationalDatabaseEntity(LogLevel.Debug, null, null, null, true);
+
+            expected.Note = string.Empty;
+            expected.Query = string.Empty;
+            expected.QueryResult = string.Empty;
+
+            Assert.AreEqual(expected.Application, result.Application);
+            Assert.AreEqual(expected.LogLevel, result.LogLevel);
+            Assert.AreEqual(expected.Note, result.Note);
+            Assert.AreEqual(expected.Query, result.Query);
+            Assert.AreEqual(expected.QueryResult, result.QueryResult);
+            Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
+        }
+
+        [TestMethod]
+        public void RelationalDatabaseErrorPopulation()
+        {
+            IRelationalDatabaseEntity expected = new RelationalDatabaseEntity();
+            expected.OnlyInnerException = true;
+            expected.WrittenToPlatform = true;
+            expected.Note = "note";
+            expected.LogLevel = LogLevel.Debug;
+            expected.Application = APPLICATION_NAME;
+            expected.Query = "Query";
+            expected.QueryResult = "Result";
+
+            var result = _relationalDatabase.PopulateRelationalDatabaseEntity(LogLevel.Debug, new Exception(), "note", true, true);
+
+            Assert.AreEqual(expected.Application, result.Application);
+            Assert.AreEqual(expected.LogLevel, result.LogLevel);
+            Assert.AreEqual(expected.Note, result.Note);
+            Assert.IsNotNull(result.Error);
+            Assert.AreEqual(expected.OnlyInnerException, result.OnlyInnerException);
+            Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
+
+            result = _relationalDatabase.PopulateRelationalDatabaseEntity(LogLevel.Debug, new Exception(), null, true, true);
+
+            expected.Note = string.Empty;
+
+            Assert.AreEqual(expected.Application, result.Application);
+            Assert.AreEqual(expected.LogLevel, result.LogLevel);
+            Assert.AreEqual(expected.Note, result.Note);
             Assert.IsNotNull(result.Error);
             Assert.AreEqual(expected.OnlyInnerException, result.OnlyInnerException);
             Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);

@@ -8,5 +8,6 @@ namespace SimpleLoggingClient.LoggingInterfaces
         IApplication Application { get; set; }
         ITransaction InternalTransaction { get; set; }
         ITransaction ExternalTransaction { get; set; }
+        IRelationalDatabase RelationalDatabase { get; set; }
     }
 }
