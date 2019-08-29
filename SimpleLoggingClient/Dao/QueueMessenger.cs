@@ -6,14 +6,14 @@ namespace SimpleLoggingClient.LoggingInterfaces.Dao
 {
     public class QueueMessenger : IQueueMessenger
     {
-        private const string QUEUE_HOSTNAME = "Queue Hostname";
-        private const string QUEUE_USERNAME = "Queue Username";
-        private const string QUEUE_PASSWORD = "Queue Password";
-        private const string QUEUE_VIRTUALHOST = "Queue Virtual Host";
-        private const string QUEUE_PORT = "Queue Port";
-        private const string QUEUE_ECHANGENAME = "Queue Echange Name";
-        private const string QUEUE_ROUTINGKEY = "Queue Routing Key";
-        private const string QUEUE_QUEUENAME = "Queue Name";
+        private const string QUEUE_HOSTNAME = "Queue_Hostname";
+        private const string QUEUE_USERNAME = "Queue_Username";
+        private const string QUEUE_PASSWORD = "Queue_Password";
+        private const string QUEUE_VIRTUALHOST = "Queue_Virtual_Host";
+        private const string QUEUE_PORT = "Queue_Port";
+        private const string QUEUE_EXCHANGENAME = "Queue_Exchange_Name";
+        private const string QUEUE_ROUTINGKEY = "Queue_Routing_Key";
+        private const string QUEUE_QUEUENAME = "Queue_Name";
 
         private string ExchangeName { get; set; }
         private string RoutingKey { get; set; }
@@ -32,7 +32,7 @@ namespace SimpleLoggingClient.LoggingInterfaces.Dao
                 Port = Convert.ToInt32(Environment.GetEnvironmentVariable(QUEUE_PORT))
             };
 
-            ExchangeName = Environment.GetEnvironmentVariable(QUEUE_ECHANGENAME);
+            ExchangeName = Environment.GetEnvironmentVariable(QUEUE_EXCHANGENAME);
             RoutingKey = Environment.GetEnvironmentVariable(QUEUE_ROUTINGKEY);
             Queue = Environment.GetEnvironmentVariable(QUEUE_QUEUENAME);
         }

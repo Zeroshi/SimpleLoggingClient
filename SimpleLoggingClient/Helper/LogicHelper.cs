@@ -10,10 +10,12 @@ namespace SimpleLoggingClient.Helper
     public class LogicHelper
     {
         private readonly int _environmentLoggingLevel;
+        private readonly bool _isEncrypted;
 
         public LogicHelper()
         {
-            _environmentLoggingLevel = Convert.ToInt32(Environment.GetEnvironmentVariable("Logging Level"));
+            _environmentLoggingLevel = Convert.ToInt32(Environment.GetEnvironmentVariable("Logging_Level"));
+            _isEncrypted = Convert.ToBoolean(Environment.GetEnvironmentVariable("Is_Encrypted"));
         }
 
         public void LogToPlatform(string messageType, string message, string note, bool logToPlatform)
@@ -86,7 +88,7 @@ namespace SimpleLoggingClient.Helper
             await Task.Run(() =>
             {
                 var json = JsonConvert.SerializeObject(entity);
-                return Encoding.UTF8.GetBytes(json);
+                return MessageFormatting(json);
             });
 
             return new byte[0];
@@ -97,7 +99,7 @@ namespace SimpleLoggingClient.Helper
             await Task.Run(() =>
             {
                 var json = JsonConvert.SerializeObject(entity);
-                return Encoding.UTF8.GetBytes(json);
+                return MessageFormatting(json);
             });
 
             return new byte[0];
@@ -108,10 +110,22 @@ namespace SimpleLoggingClient.Helper
             await Task.Run(() =>
             {
                 var json = JsonConvert.SerializeObject(entity);
-                return Encoding.UTF8.GetBytes(json);
+                return MessageFormatting(json);
             });
 
             return new byte[0];
+        }
+
+        private byte[] MessageFormatting(string message)
+        {
+            var encodedMessage = Encoding.UTF8.GetBytes(message);
+
+            if (_isEncrypted)
+            {
+                return Encoding.UTF8.GetBytes(Convert.ToBase64String(encodedMessage));
+            }
+
+            return encodedMessage;
         }
 
         public bool ShouldSendToQueue(LogLevel logLevel)
