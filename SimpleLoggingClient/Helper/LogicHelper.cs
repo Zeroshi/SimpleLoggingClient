@@ -7,7 +7,7 @@ using static SimpleLoggingInterfaces.Enums.EnumCollection;
 
 namespace SimpleLoggingClient.Helper
 {
-    public class LogicHelper
+    public class LogicHelper : ILogicHelper
     {
         private readonly int _environmentLoggingLevel;
         private readonly bool _isEncrypted;
@@ -105,7 +105,7 @@ namespace SimpleLoggingClient.Helper
             return new byte[0];
         }
 
-        public async Task<byte[]> MessageConversion(ITransactions entity)
+        public async Task<byte[]> MessageConversion(ITransactionEntity entity)
         {
             await Task.Run(() =>
             {
@@ -127,7 +127,7 @@ namespace SimpleLoggingClient.Helper
             return new byte[0];
         }
 
-        private byte[] MessageFormatting(string message)
+        public byte[] MessageFormatting(string message)
         {
             var encodedMessage = Encoding.UTF8.GetBytes(message);
 

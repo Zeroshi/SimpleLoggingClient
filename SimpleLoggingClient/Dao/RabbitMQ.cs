@@ -1,10 +1,11 @@
 ﻿using RabbitMQ.Client;
+using SimpleLoggingClient.LoggingInterfaces.Dao;
 using System;
 using System.Threading.Tasks;
 
-namespace SimpleLoggingClient.LoggingInterfaces.Dao
+namespace SimpleLoggingClient.Dao
 {
-    public class QueueMessenger : IQueueMessenger
+    public class RabbitMQ : IQueueMessenger
     {
         private const string QUEUE_HOSTNAME = "Queue_Hostname";
         private const string QUEUE_USERNAME = "Queue_Username";
@@ -21,7 +22,7 @@ namespace SimpleLoggingClient.LoggingInterfaces.Dao
 
         private ConnectionFactory _factory;
 
-        public QueueMessenger()
+        public RabbitMQ()
         {
             _factory = new ConnectionFactory()
             {

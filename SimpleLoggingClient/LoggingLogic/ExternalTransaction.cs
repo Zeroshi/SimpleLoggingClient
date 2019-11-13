@@ -10,18 +10,18 @@ namespace SimpleLoggingClient.LoggingLogic
 {
     public class ExternalTransaction : ITransaction
     {
-        private LogicHelper _logicHelper;
+        private ILogicHelper _logicHelper;
         private IQueueMessenger _queueMessenger;
         private readonly string _applicationName;
 
         private const string APPLICATION_MESSAGE = "Application Message";
         private const string APPLICATION_ERROR = "Application Error";
 
-        public ExternalTransaction(string applicationName)
+        public ExternalTransaction(string applicationName, Enums.Enums.MessageQueueType messageQueueType, ILogicHelper logicHelper)
         {
             _applicationName = applicationName;
-            _logicHelper = new LogicHelper();
-            _queueMessenger = new QueueMessenger();
+            _logicHelper = logicHelper;
+            _queueMessenger = new MessageRoutingType { }.MessageQueueSelection(messageQueueType);
         }
 
         public async void Error(LogLevel logLevel, Exception exception, bool innerExceptionOnly, bool writeToPlatform)
@@ -162,9 +162,9 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
-        public ITransactions PopulateTransactionEntity(LogLevel logLevel, Exception exception, string request, string response, string uri, string note, bool innerExceptionOnly, bool writeToPlatform)
+        public ITransactionEntity PopulateTransactionEntity(LogLevel logLevel, Exception exception, string request, string response, string uri, string note, bool innerExceptionOnly, bool writeToPlatform)
         {
-            ITransactions transaction = new ExternalTransactionEntity();
+            ITransactionEntity transaction = new ExternalTransactionEntity();
             transaction.Error = exception;
             transaction.LogLevel = logLevel;
             transaction.Request = string.IsNullOrWhiteSpace(request) ? string.Empty : request;
@@ -180,9 +180,9 @@ namespace SimpleLoggingClient.LoggingLogic
             return transaction;
         }
 
-        public ITransactions PopulateTransactionEntity(LogLevel logLevel, string request, string response, string uri, string note, bool writeToPlatform)
+        public ITransactionEntity PopulateTransactionEntity(LogLevel logLevel, string request, string response, string uri, string note, bool writeToPlatform)
         {
-            ITransactions transaction = new ExternalTransactionEntity();
+            ITransactionEntity transaction = new ExternalTransactionEntity();
             transaction.TrasactionType = TransactionType.External;
             transaction.Request = string.IsNullOrWhiteSpace(request) ? string.Empty : request;
             transaction.Response = string.IsNullOrWhiteSpace(response) ? string.Empty : response;

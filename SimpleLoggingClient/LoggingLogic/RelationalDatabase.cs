@@ -10,19 +10,19 @@ namespace SimpleLoggingClient.LoggingLogic
 {
     public class RelationalDatabase : IRelationalDatabase
     {
-        private LogicHelper _logicHelper;
-        private IQueueMessenger _queueMessenger;
+        private readonly ILogicHelper _logicHelper;
+        private readonly IQueueMessenger _queueMessenger;
         private readonly string _applicationName;
 
         private const string QUERY_MESSAGE = "Query Message";
         private const string RESULT_MESSAGE = "Result Message";
         private const string DATABASE_ERROR = "Database Error";
 
-        public RelationalDatabase(string applicationName)
+        public RelationalDatabase(string applicationName, Enums.Enums.MessageQueueType messageQueueType, ILogicHelper logicHelper)
         {
             _applicationName = applicationName;
-            _logicHelper = new LogicHelper();
-            _queueMessenger = new QueueMessenger();
+            _logicHelper = logicHelper;
+            _queueMessenger = new MessageRoutingType { }.MessageQueueSelection(messageQueueType);
         }
 
         public async void Error(EnumCollection.LogLevel logLevel, Exception exception, bool innerExceptionOnly, bool writeToPlatform)

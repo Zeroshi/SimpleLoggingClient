@@ -8,7 +8,7 @@ using static SimpleLoggingInterfaces.Enums.EnumCollection;
 
 public class MessageQueue : IMessageQueue
 {
-    private LogicHelper _logicHelper;
+    private ILogicHelper _logicHelper;
     private IQueueMessenger _queueMessenger;
     private readonly string _applicationName;
 
@@ -16,11 +16,11 @@ public class MessageQueue : IMessageQueue
     private string POP_MESSAGE_TYPE = "Pop Message";
     private string MQ_ERROR = "Message Queue Error";
 
-    public MessageQueue(string applicationName)
+    public MessageQueue(string applicationName, SimpleLoggingClient.Enums.Enums.MessageQueueType messageQueueType, ILogicHelper logicHelper)
     {
         _applicationName = applicationName;
-        _logicHelper = new LogicHelper();
-        _queueMessenger = new QueueMessenger();
+        _logicHelper = logicHelper;
+        _queueMessenger = new MessageRoutingType { }.MessageQueueSelection(messageQueueType);
     }
 
     public async void PopMessage(LogLevel logLevel, string message, bool writeToPlatform)
