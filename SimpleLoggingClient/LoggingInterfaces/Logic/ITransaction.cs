@@ -20,8 +20,8 @@ namespace SimpleLoggingClient.LoggingInterfaces.Logic
 
         void Error(LogLevel logLevel, Exception exception, string request, string response, string uri, string note, bool innerExceptionOnly, bool writeToPlatform);
 
-        ITransactions PopulateTransactionEntity(LogLevel logLevel, Exception exception, string request, string response, string uri, string note, bool innerExceptionOnly, bool writeToPlatform);
+        ITransactionEntity PopulateTransactionEntity(LogLevel logLevel, Exception exception, string request, string response, string uri, string note, bool innerExceptionOnly, bool writeToPlatform);
 
-        ITransactions PopulateTransactionEntity(LogLevel logLevel, string request, string response, string uri, string note, bool writeToPlatform);
+        ITransactionEntity PopulateTransactionEntity(LogLevel logLevel, string request, string response, string uri, string note, bool writeToPlatform);
     }
 }

@@ -1,5 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using SimpleLoggingClient.Helper;
 using SimpleLoggingClient.LoggingEntities;
+using SimpleLoggingClient.LoggingInterfaces.Dao;
 using SimpleLoggingClient.LoggingInterfaces.Logic;
 using SimpleLoggingClient.LoggingLogic;
 using SimpleLoggingInterfaces.Interfaces;
@@ -18,14 +21,21 @@ namespace SimpleLoggingClient.Test
         private IApplication _application;
         private IMessageQueue _messageQueue;
         private IRelationalDatabase _relationalDatabase;
+        private IQueueMessenger _queueMessenger;
+        private ILogicHelper _logicHelper;
 
         public SimpleLoggingTests()
         {
-            _internalTransaction = new InternalTransaction(APPLICATION_NAME);
-            _externalTransaction = new ExternalTransaction(APPLICATION_NAME);
-            _application = new Application(APPLICATION_NAME);
-            _messageQueue = new MessageQueue(APPLICATION_NAME);
-            _relationalDatabase = new RelationalDatabase(APPLICATION_NAME);
+            var mockQueue = new Mock<IQueueMessenger>();
+            mockQueue.Setup(x => x.SendMessage(It.IsAny<byte[]>()));
+            _queueMessenger = (IQueueMessenger)mockQueue;
+            _logicHelper = new LogicHelper();
+            var messageQueueType = SimpleLoggingClient.Enums.Enums.MessageQueueType.RabbitMQ;
+            _internalTransaction = new InternalTransaction(APPLICATION_NAME, messageQueueType, _logicHelper);
+            _externalTransaction = new ExternalTransaction(APPLICATION_NAME, messageQueueType, _logicHelper);
+            _application = new Application(APPLICATION_NAME, messageQueueType, _logicHelper);
+            _messageQueue = new MessageQueue(APPLICATION_NAME, messageQueueType, _logicHelper);
+            _relationalDatabase = new RelationalDatabase(APPLICATION_NAME, messageQueueType, _logicHelper);
         }
 
         [TestMethod]
@@ -215,7 +225,7 @@ namespace SimpleLoggingClient.Test
         [TestMethod]
         public void ExternalTransactionPopulation()
         {
-            ITransactions expected = new ExternalTransactionEntity();
+            ITransactionEntity expected = new ExternalTransactionEntity();
             expected.OnlyInnerException = true;
             expected.WrittenToPlatform = true;
             expected.Note = "note";
@@ -257,7 +267,7 @@ namespace SimpleLoggingClient.Test
         [TestMethod]
         public void ExternalTransactionErrorPopulation()
         {
-            ITransactions expected = new ExternalTransactionEntity();
+            ITransactionEntity expected = new ExternalTransactionEntity();
             expected.OnlyInnerException = true;
             expected.WrittenToPlatform = true;
             expected.Note = "note";
@@ -303,7 +313,7 @@ namespace SimpleLoggingClient.Test
         [TestMethod]
         public void InternalTransactionPopulation()
         {
-            ITransactions expected = new ExternalTransactionEntity();
+            ITransactionEntity expected = new ExternalTransactionEntity();
             expected.OnlyInnerException = true;
             expected.WrittenToPlatform = true;
             expected.Note = "note";
@@ -345,7 +355,7 @@ namespace SimpleLoggingClient.Test
         [TestMethod]
         public void InternalTransactionErrorPopulation()
         {
-            ITransactions expected = new ExternalTransactionEntity();
+            ITransactionEntity expected = new ExternalTransactionEntity();
             expected.OnlyInnerException = true;
             expected.WrittenToPlatform = true;
             expected.Note = "note";

@@ -10,18 +10,18 @@ namespace SimpleLoggingClient.LoggingLogic
 {
     public class Application : IApplication
     {
-        private LogicHelper _logicHelper;
+        private ILogicHelper _logicHelper;
         private IQueueMessenger _queueMessenger;
         private readonly string _applicationName;
 
         private const string APPLICATION_MESSAGE = "Application Message";
         private const string APPLICATION_ERROR = "Application Error";
 
-        public Application(string applicationName)
+        public Application(string applicationName, Enums.Enums.MessageQueueType messageQueueType, ILogicHelper logHelper)
         {
             _applicationName = applicationName;
-            _logicHelper = new LogicHelper();
-            _queueMessenger = new QueueMessenger();
+            _logicHelper = logHelper;
+            _queueMessenger = new MessageRoutingType { }.MessageQueueSelection(messageQueueType);
         }
 
         public async void Error(LogLevel logLevel, Exception exception, bool innerExceptionOnly, bool writeToPlatform)
