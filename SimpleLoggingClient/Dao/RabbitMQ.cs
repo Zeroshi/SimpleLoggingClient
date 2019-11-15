@@ -1,4 +1,5 @@
 ﻿using RabbitMQ.Client;
+using SimpleLoggingClient.Interfaces.LoggingInterfaces;
 using SimpleLoggingClient.LoggingInterfaces.Dao;
 using System;
 using System.Threading.Tasks;
@@ -22,18 +23,18 @@ namespace SimpleLoggingClient.Dao
 
         private ConnectionFactory _factory;
 
-        public RabbitMQ()
+        public RabbitMQ(IInitializationInformation initializationInformation)
         {
             _factory = new ConnectionFactory()
             {
-                HostName = Environment.GetEnvironmentVariable(QUEUE_HOSTNAME),
-                UserName = Environment.GetEnvironmentVariable(QUEUE_USERNAME),
-                Password = Environment.GetEnvironmentVariable(QUEUE_PASSWORD),
-                VirtualHost = Environment.GetEnvironmentVariable(QUEUE_VIRTUALHOST),
-                Port = Convert.ToInt32(Environment.GetEnvironmentVariable(QUEUE_PORT))
+                HostName = initializationInformation.RabbitMq.HostName,
+                UserName = initializationInformation.RabbitMq.UserName,
+                Password = initializationInformation.RabbitMq.Password,
+                VirtualHost = initializationInformation.RabbitMq.VirtualHost,
+                Port = initializationInformation.RabbitMq.PortNumber
             };
 
-            ExchangeName = Environment.GetEnvironmentVariable(QUEUE_EXCHANGENAME);
+            ExchangeName = initializationInformation.RabbitMq.ExchangeName;
             RoutingKey = Environment.GetEnvironmentVariable(QUEUE_ROUTINGKEY);
             Queue = Environment.GetEnvironmentVariable(QUEUE_QUEUENAME);
         }

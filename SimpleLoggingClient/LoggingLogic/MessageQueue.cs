@@ -1,4 +1,5 @@
 ﻿using SimpleLoggingClient.Helper;
+using SimpleLoggingClient.Interfaces.LoggingInterfaces;
 using SimpleLoggingClient.LoggingEntities;
 using SimpleLoggingClient.LoggingInterfaces.Dao;
 using SimpleLoggingClient.LoggingInterfaces.Logic;
@@ -8,21 +9,27 @@ using static SimpleLoggingInterfaces.Enums.EnumCollection;
 
 public class MessageQueue : IMessageQueue
 {
-    private ILogicHelper _logicHelper;
     private IQueueMessenger _queueMessenger;
     private readonly string _applicationName;
 
     private string PUSH_MESSAGE_TYPE = "Push Message";
     private string POP_MESSAGE_TYPE = "Pop Message";
     private string MQ_ERROR = "Message Queue Error";
+    private ILogicHelper _logicHelper;
 
-    public MessageQueue(string applicationName, SimpleLoggingClient.Enums.Enums.MessageQueueType messageQueueType, ILogicHelper logicHelper)
+    public MessageQueue(IInitializationInformation initializationInformation)
     {
-        _applicationName = applicationName;
-        _logicHelper = logicHelper;
-        _queueMessenger = new MessageRoutingType { }.MessageQueueSelection(messageQueueType);
+        _logicHelper = new LogicHelper(initializationInformation);
+        _applicationName = initializationInformation.ApplicationName;
+        _queueMessenger = new MessageRoutingType { }.MessageQueueSelection(initializationInformation);
     }
 
+    /// <summary>
+    /// Log Message popped from message queue
+    /// </summary>
+    /// <param name="logLevel"></param>
+    /// <param name="message"></param>
+    /// <param name="writeToPlatform"></param>
     public async void PopMessage(LogLevel logLevel, string message, bool writeToPlatform)
     {
         _logicHelper.LogToPlatform(POP_MESSAGE_TYPE, message, null, writeToPlatform);
@@ -43,6 +50,13 @@ public class MessageQueue : IMessageQueue
         }
     }
 
+    /// <summary>
+    /// Log Message popped from message queue
+    /// </summary>
+    /// <param name="logLevel"></param>
+    /// <param name="message"></param>
+    /// <param name="note"></param>
+    /// <param name="writeToPlatform"></param>
     public async void PopMessage(LogLevel logLevel, string message, string note, bool writeToPlatform)
     {
         try
@@ -63,6 +77,12 @@ public class MessageQueue : IMessageQueue
         }
     }
 
+    /// <summary>
+    /// Log Message being sent to message queue
+    /// </summary>
+    /// <param name="logLevel"></param>
+    /// <param name="message"></param>
+    /// <param name="writeToPlatform"></param>
     public async void PushMessage(LogLevel logLevel, string message, bool writeToPlatform)
     {
         try
@@ -83,6 +103,13 @@ public class MessageQueue : IMessageQueue
         }
     }
 
+    /// <summary>
+    /// Log Message being sent to message queue
+    /// </summary>
+    /// <param name="logLevel"></param>
+    /// <param name="message"></param>
+    /// <param name="note"></param>
+    /// <param name="writeToPlatform"></param>
     public async void PushMessage(LogLevel logLevel, string message, string note, bool writeToPlatform)
     {
         try
@@ -103,6 +130,13 @@ public class MessageQueue : IMessageQueue
         }
     }
 
+    /// <summary>
+    /// Message Queue Error logging
+    /// </summary>
+    /// <param name="logLevel"></param>
+    /// <param name="exception"></param>
+    /// <param name="innerExceptionOnly"></param>
+    /// <param name="writeToPlatform"></param>
     public async void Error(LogLevel logLevel, Exception exception, bool innerExceptionOnly, bool writeToPlatform)
     {
         try
@@ -123,6 +157,15 @@ public class MessageQueue : IMessageQueue
         }
     }
 
+    /// <summary>
+    /// Message Queue Error logging
+    /// </summary>
+    /// <param name="logLevel"></param>
+    /// <param name="exception"></param>
+    /// <param name="note"></param>
+    /// <remarks>Specific note from services</remarks>
+    /// <param name="innerExceptionOnly"></param>
+    /// <param name="writeToPlatform"></param>
     public async void Error(LogLevel logLevel, Exception exception, string note, bool innerExceptionOnly, bool writeToPlatform)
     {
         try
@@ -143,6 +186,15 @@ public class MessageQueue : IMessageQueue
         }
     }
 
+    /// <summary>
+    /// Populate message queue object
+    /// </summary>
+    /// <param name="logLevel"></param>
+    /// <param name="popMessage"></param>
+    /// <param name="pushMessage"></param>
+    /// <param name="note"></param>
+    /// <param name="writeToPlatform"></param>
+    /// <returns></returns>
     public IMessageQueueEntity PopulateMessageQueueEntity(LogLevel logLevel, string popMessage, string pushMessage, string note, bool writeToPlatform)
     {
         IMessageQueueEntity messageQueue = new MessageQueueEntity();
@@ -157,6 +209,15 @@ public class MessageQueue : IMessageQueue
         return messageQueue;
     }
 
+    /// <summary>
+    /// Populate message queue object
+    /// </summary>
+    /// <param name="logLevel"></param>
+    /// <param name="exception"></param>
+    /// <param name="note"></param>
+    /// <param name="innerExceptionOnly"></param>
+    /// <param name="writeToPlatform"></param>
+    /// <returns></returns>
     public IMessageQueueEntity PopulateMessageQueueEntity(LogLevel logLevel, Exception exception, string note, bool innerExceptionOnly, bool writeToPlatform)
     {
         IMessageQueueEntity messageQueue = new MessageQueueEntity();

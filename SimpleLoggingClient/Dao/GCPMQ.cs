@@ -1,7 +1,7 @@
 ﻿using Google.Cloud.PubSub.V1;
 using SimpleLoggingClient.Helper;
+using SimpleLoggingClient.Interfaces.LoggingInterfaces;
 using SimpleLoggingClient.LoggingInterfaces.Dao;
-using System;
 
 namespace SimpleLoggingClient.Dao
 {
@@ -13,11 +13,11 @@ namespace SimpleLoggingClient.Dao
 
         private const string MESSAGE_PUBLISHED = "Message Published";
 
-        public GCPMQ()
+        public GCPMQ(IInitializationInformation initializationInfomormation)
         {
-            _projectId = Environment.GetEnvironmentVariable("Google_ProjectId");
-            _topicId = Environment.GetEnvironmentVariable("Google_TopicId");
-            _LogicHelper = new LogicHelper();
+            _projectId = initializationInfomormation.GcpMq.ProjectId;
+            _topicId = initializationInfomormation.GcpMq.TopicId;
+            _LogicHelper = new LogicHelper(initializationInfomormation);
         }
 
         public async void SendMessage(byte[] message)

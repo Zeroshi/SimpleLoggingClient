@@ -1,6 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SimpleLoggingClient.Entities.LoggingInformation;
 using SimpleLoggingClient.Helper;
+using SimpleLoggingClient.Interfaces.LoggingInterfaces;
 using SimpleLoggingClient.LoggingEntities;
 using SimpleLoggingClient.LoggingInterfaces.Dao;
 using SimpleLoggingClient.LoggingInterfaces.Logic;
@@ -26,16 +28,17 @@ namespace SimpleLoggingClient.Test
 
         public SimpleLoggingTests()
         {
-            var mockQueue = new Mock<IQueueMessenger>();
-            mockQueue.Setup(x => x.SendMessage(It.IsAny<byte[]>()));
-            _queueMessenger = (IQueueMessenger)mockQueue;
-            _logicHelper = new LogicHelper();
-            var messageQueueType = SimpleLoggingClient.Enums.Enums.MessageQueueType.RabbitMQ;
-            _internalTransaction = new InternalTransaction(APPLICATION_NAME, messageQueueType, _logicHelper);
-            _externalTransaction = new ExternalTransaction(APPLICATION_NAME, messageQueueType, _logicHelper);
-            _application = new Application(APPLICATION_NAME, messageQueueType, _logicHelper);
-            _messageQueue = new MessageQueue(APPLICATION_NAME, messageQueueType, _logicHelper);
-            _relationalDatabase = new RelationalDatabase(APPLICATION_NAME, messageQueueType, _logicHelper);
+            Mock<IQueueMessenger> queueMessenger = new Mock<IQueueMessenger>();
+            queueMessenger.Setup(x => x.SendMessage(It.IsAny<byte[]>()));
+            _queueMessenger = queueMessenger.Object;
+            IInitializationInformation initializationInformation = new InitialilizationInformation(MessageQueueType.RabbitMQ);
+            initializationInformation.ApplicationName = APPLICATION_NAME;
+            _logicHelper = new LogicHelper(initializationInformation);
+            _internalTransaction = new InternalTransaction(initializationInformation);
+            _externalTransaction = new ExternalTransaction(initializationInformation);
+            _application = new Application(initializationInformation);
+            _messageQueue = new MessageQueue(initializationInformation);
+            _relationalDatabase = new RelationalDatabase(initializationInformation);
         }
 
         [TestMethod]

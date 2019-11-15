@@ -1,4 +1,5 @@
 ﻿using SimpleLoggingClient.Helper;
+using SimpleLoggingClient.Interfaces.LoggingInterfaces;
 using SimpleLoggingClient.LoggingEntities;
 using SimpleLoggingClient.LoggingInterfaces.Dao;
 using SimpleLoggingClient.LoggingInterfaces.Logic;
@@ -10,20 +11,27 @@ namespace SimpleLoggingClient.LoggingLogic
 {
     public class InternalTransaction : ITransaction
     {
-        private ILogicHelper _logicHelper;
         private IQueueMessenger _queueMessenger;
         private readonly string _applicationName;
+        private ILogicHelper _logicHelper;
 
         private const string APPLICATION_MESSAGE = "Application Message";
         private const string APPLICATION_ERROR = "Application Error";
 
-        public InternalTransaction(string applicationName, Enums.Enums.MessageQueueType messageQueueType, ILogicHelper logicHelper)
+        public InternalTransaction(IInitializationInformation initializationInformation)
         {
-            _applicationName = applicationName;
-            _logicHelper = logicHelper;
-            _queueMessenger = new MessageRoutingType { }.MessageQueueSelection(messageQueueType);
+            _logicHelper = new LogicHelper(initializationInformation);
+            _applicationName = initializationInformation.ApplicationName; ;
+            _queueMessenger = new MessageRoutingType { }.MessageQueueSelection(initializationInformation);
         }
 
+        /// <summary>
+        /// Internal Transaction Error logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="exception"></param>
+        /// <param name="innerExceptionOnly"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Error(LogLevel logLevel, Exception exception, bool innerExceptionOnly, bool writeToPlatform)
         {
             try
@@ -44,6 +52,15 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Internal Transaction Error logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="exception"></param>
+        /// <param name="note"></param>
+        /// <remarks>Specific note from services</remarks>
+        /// <param name="innerExceptionOnly"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Error(LogLevel logLevel, Exception exception, string request, string response, bool innerExceptionOnly, bool writeToPlatform)
         {
             try
@@ -64,6 +81,16 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Internal Transaction Error logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="exception"></param>
+        /// <param name="request"></param>
+        /// <param name="response"></param>
+        /// <param name="uri"></param>
+        /// <param name="innerExceptionOnly"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Error(LogLevel logLevel, Exception exception, string request, string response, string uri, bool innerExceptionOnly, bool writeToPlatform)
         {
             try
@@ -84,6 +111,17 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Internal Transaction Error logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="exception"></param>
+        /// <param name="request"></param>
+        /// <param name="response"></param>
+        /// <param name="uri"></param>
+        /// <param name="note"></param>
+        /// <param name="innerExceptionOnly"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Error(LogLevel logLevel, Exception exception, string request, string response, string uri, string note, bool innerExceptionOnly, bool writeToPlatform)
         {
             try
@@ -104,6 +142,13 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Internal Transaction message logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="request"></param>
+        /// <param name="response"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Message(LogLevel logLevel, string request, string response, bool writeToPlatform)
         {
             try
@@ -124,6 +169,14 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Internal Transaction message logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="request"></param>
+        /// <param name="response"></param>
+        /// <param name="uri"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Message(LogLevel logLevel, string request, string response, string uri, bool writeToPlatform)
         {
             try
@@ -144,6 +197,15 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Internal Transaction message logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="request"></param>
+        /// <param name="response"></param>
+        /// <param name="uri"></param>
+        /// <param name="note"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Message(LogLevel logLevel, string request, string response, string uri, string note, bool writeToPlatform)
         {
             try
@@ -164,6 +226,18 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Populate internal transaction object
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="exception"></param>
+        /// <param name="request"></param>
+        /// <param name="response"></param>
+        /// <param name="uri"></param>
+        /// <param name="note"></param>
+        /// <param name="innerExceptionOnly"></param>
+        /// <param name="writeToPlatform"></param>
+        /// <returns></returns>
         public ITransactionEntity PopulateTransactionEntity(LogLevel logLevel, Exception exception, string request, string response, string uri, string note, bool innerExceptionOnly, bool writeToPlatform)
         {
             ITransactionEntity transaction = new ExternalTransactionEntity();
@@ -182,6 +256,16 @@ namespace SimpleLoggingClient.LoggingLogic
             return transaction;
         }
 
+        /// <summary>
+        /// Populate internal transaction object
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="request"></param>
+        /// <param name="response"></param>
+        /// <param name="uri"></param>
+        /// <param name="note"></param>
+        /// <param name="writeToPlatform"></param>
+        /// <returns></returns>
         public ITransactionEntity PopulateTransactionEntity(LogLevel logLevel, string request, string response, string uri, string note, bool writeToPlatform)
         {
             ITransactionEntity transaction = new ExternalTransactionEntity();

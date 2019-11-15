@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SimpleLoggingClient</name>
+    </assembly>
+    <members>
+        <member name="M:SimpleLoggingClient.Log.#ctor(System.String,System.String,System.String,SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Boolean)">
+            <summary>
+            GCP Pub/Sub Topic setup
+            </summary>
+            <remarks>This is used for GCP Pub/Sub</remarks>
+            <param name="applicationName">Adds application name to all of the messages</param>
+            <param name="projectId">GCP Project Id</param>
+            <param name="topicId">GCP Topic Id</param>
+            <param name="publishLogLevel">Level of logging that will be delivered (debug, info, error, off (no messages))</param>
+            <param name="encryptMessages">encrypt messages prior to passing to queue</param>
+        </member>
+        <member name="M:SimpleLoggingClient.Log.#ctor(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String,System.String,SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Boolean)">
+            <summary>
+            RabbitMq setup
+            </summary>
+            <remarks>This is used for RabbitMQ message queues</remarks>
+            <param name="applicationName">Adds application name to all of the messages</param>
+            <param name="HostName">RabbitMQ Host Name</param>
+            <param name="UserName">RabbitMQ User Name</param>
+            <param name="Password">RabbitMQ Password</param>
+            <param name="VirtualHost">RabbitMQ VirtualHost</param>
+            <param name="PortNumber">RabbitMQ Port Number for connectivity</param>
+            <param name="ExchangeName">RabbitMQ Exchange Name</param>
+            <param name="RoutingKey">RabbitMQ Key used to route to queue</param>
+            <param name="QueueName">RabbitMQ name of queue</param>
+            <param name="publishLogLevel">Level of logging that will be delivered (debug, info, error, off (no messages))</param>
+            <param name="encryptMessages">encrypt messages prior to passing to queue</param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.RelationalDatabase.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Relation Database Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="note"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+    </members>
+</doc>

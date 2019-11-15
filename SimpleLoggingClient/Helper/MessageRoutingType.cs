@@ -1,21 +1,25 @@
-﻿using SimpleLoggingClient.LoggingInterfaces.Dao;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SimpleLoggingClient.Interfaces.LoggingInterfaces;
+using SimpleLoggingClient.LoggingInterfaces.Dao;
+using static SimpleLoggingInterfaces.Enums.EnumCollection;
 
 namespace SimpleLoggingClient.Helper
 {
     public class MessageRoutingType : IMessageRoutingType
     {
-        public IQueueMessenger MessageQueueSelection(Enums.Enums.MessageQueueType messageQueueType)
+        /// <summary>
+        /// Determines the message service being used. Such as GCP Pub/Sub, RabbitMQ
+        /// </summary>
+        /// <param name="initializationInformation"></param>
+        /// <returns></returns>
+        public IQueueMessenger MessageQueueSelection(IInitializationInformation initializationInformation)
         {
-            if (messageQueueType == Enums.Enums.MessageQueueType.RabbitMQ)
+            if (initializationInformation.MessageQueueType == MessageQueueType.RabbitMQ)
             {
-                return new SimpleLoggingClient.Dao.RabbitMQ();
+                return new Dao.RabbitMQ(initializationInformation);
             }
-            if (messageQueueType == Enums.Enums.MessageQueueType.GcpMQ)
+            if (initializationInformation.MessageQueueType == MessageQueueType.GcpMQ)
             {
-                return new SimpleLoggingClient.Dao.GCPMQ();
+                return new Dao.GCPMQ(initializationInformation);
             }
 
             return null;
