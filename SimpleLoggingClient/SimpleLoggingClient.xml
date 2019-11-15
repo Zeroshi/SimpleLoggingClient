@@ -1,0 +1,534 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SimpleLoggingClient</name>
+    </assembly>
+    <members>
+        <member name="M:SimpleLoggingClient.Helper.LogicHelper.LogToPlatform(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Send message to console (cloud logging)
+            </summary>
+            <param name="messageType"></param>
+            <param name="message"></param>
+            <param name="note"></param>
+            <param name="logToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.Helper.LogicHelper.LogToPlatform(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Send message to console (cloud logging)
+            </summary>
+            <param name="messageType"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="note"></param>
+            <param name="logToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.Helper.LogicHelper.LogToPlatform(System.String,System.Exception,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Send message to console (cloud logging)
+            </summary>
+            <param name="messageType"></param>
+            <param name="exception"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="note"></param>
+            <param name="logToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.Helper.LogicHelper.MessageConversion(SimpleLoggingInterfaces.Interfaces.IApplicationEntity)">
+            <summary>
+            Convert application object to json
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.Helper.LogicHelper.MessageConversion(SimpleLoggingInterfaces.Interfaces.IMessageQueueEntity)">
+            <summary>
+            Convert message queue object to json
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.Helper.LogicHelper.MessageConversion(SimpleLoggingInterfaces.Interfaces.ITransactionEntity)">
+            <summary>
+            Convert Internal/External transaction object to json
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.Helper.LogicHelper.MessageConversion(SimpleLoggingInterfaces.Interfaces.IRelationalDatabaseEntity)">
+            <summary>
+            Convert relational database object to json
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.Helper.LogicHelper.MessageFormatting(System.String)">
+            <summary>
+            Encode and optionally encrypt messages before sending to queue
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.Helper.LogicHelper.ShouldSendToQueue(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel)">
+            <summary>
+            Determine if the
+            </summary>
+            <param name="logLevel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.Helper.MessageRoutingType.MessageQueueSelection(SimpleLoggingClient.Interfaces.LoggingInterfaces.IInitializationInformation)">
+            <summary>
+            Determines the message service being used. Such as GCP Pub/Sub, RabbitMQ
+            </summary>
+            <param name="initializationInformation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.Log.#ctor(System.String,System.String,System.String,SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Boolean)">
+            <summary>
+            GCP Pub/Sub Topic setup
+            </summary>
+            <remarks>This is used for GCP Pub/Sub</remarks>
+            <param name="applicationName">Adds application name to all of the messages</param>
+            <param name="projectId">GCP Project Id</param>
+            <param name="topicId">GCP Topic Id</param>
+            <param name="publishLogLevel">Level of logging that will be delivered (debug, info, error, off (no messages))</param>
+            <param name="encryptMessages">encrypt messages prior to passing to queue</param>
+        </member>
+        <member name="M:SimpleLoggingClient.Log.#ctor(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String,System.String,SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Boolean)">
+            <summary>
+            RabbitMQ setup
+            </summary>
+            <param name="applicationName"></param>
+            <param name="hostName"></param>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <param name="virtualHost"></param>
+            <param name="portNumber"></param>
+            <param name="exchangeName"></param>
+            <param name="routingKey"></param>
+            <param name="queueName"></param>
+            <param name="publishLogLevel"></param>
+            <param name="encryptMessages"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.Log.Initialize(SimpleLoggingClient.Interfaces.LoggingInterfaces.IInitializationInformation)">
+            <summary>
+            Initialize the application
+            </summary>
+            <param name="initializationInformation"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.Application.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Application Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.Application.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Application Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="note"></param>
+            <remarks>Specific note from services</remarks>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.Application.Message(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.Boolean)">
+            <summary>
+            Application message logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="message"></param>
+            <param name="currentMethod"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.Application.Message(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Application message logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="message"></param>
+            <param name="note"></param>
+            <param name="currentMethod"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.Application.PopulateApplicationEntity(System.String,System.Boolean,SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String)">
+            <summary>
+            Populate application object
+            </summary>
+            <param name="message"></param>
+            <param name="writeToPlatform"></param>
+            <param name="logLevel"></param>
+            <param name="currentMethod"></param>
+            <param name="note"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.Application.PopulateApplicationEntity(System.Exception,System.Boolean,System.Boolean,SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String)">
+            <summary>
+            Populate application object
+            </summary>
+            <param name="exception"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+            <param name="logLevel"></param>
+            <param name="note"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.ExternalTransaction.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            External Transaction Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.ExternalTransaction.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            External Transaction Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="note"></param>
+            <remarks>Specific note from services</remarks>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.ExternalTransaction.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            External Transaction Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="uri"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.ExternalTransaction.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Internal Transaction Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="uri"></param>
+            <param name="note"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.ExternalTransaction.Message(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.Boolean)">
+            <summary>
+            Internal Transaction message logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.ExternalTransaction.Message(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Internal Transaction message logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="uri"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.ExternalTransaction.Message(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Internal Transaction message logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="uri"></param>
+            <param name="note"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.ExternalTransaction.PopulateTransactionEntity(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Populate Internal Transaction object
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="uri"></param>
+            <param name="note"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.ExternalTransaction.PopulateTransactionEntity(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Populate Internal Transaction object
+            </summary>
+            <param name="logLevel"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="uri"></param>
+            <param name="note"></param>
+            <param name="writeToPlatform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.InternalTransaction.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Internal Transaction Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.InternalTransaction.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Internal Transaction Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.InternalTransaction.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Internal Transaction Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="uri"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.InternalTransaction.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Internal Transaction Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="uri"></param>
+            <param name="note"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.InternalTransaction.Message(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.Boolean)">
+            <summary>
+            Internal Transaction message logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.InternalTransaction.Message(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Internal Transaction message logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="uri"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.InternalTransaction.Message(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Internal Transaction message logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="uri"></param>
+            <param name="note"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.InternalTransaction.PopulateTransactionEntity(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Populate internal transaction object
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="uri"></param>
+            <param name="note"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.InternalTransaction.PopulateTransactionEntity(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Populate internal transaction object
+            </summary>
+            <param name="logLevel"></param>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="uri"></param>
+            <param name="note"></param>
+            <param name="writeToPlatform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.RelationalDatabase.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Relation Database Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.RelationalDatabase.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Relation Database Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="note"></param>
+            <remarks>Specific note from services</remarks>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.RelationalDatabase.Query(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.Boolean)">
+            <summary>
+            Log query
+            </summary>
+            <param name="logLevel"></param>
+            <param name="query"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.RelationalDatabase.Query(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.Boolean)">
+            <summary>
+            Log query
+            </summary>
+            <param name="logLevel"></param>
+            <param name="query"></param>
+            <param name="note"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.RelationalDatabase.Result(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.Boolean)">
+            <summary>
+            Log database query result
+            </summary>
+            <param name="logLevel"></param>
+            <param name="result"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.RelationalDatabase.Result(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.Boolean)">
+            <summary>
+            Log database query result
+            </summary>
+            <param name="logLevel"></param>
+            <param name="result"></param>
+            <param name="note"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.RelationalDatabase.PopulateRelationalDatabaseEntity(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Populate relational database object for logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="query"></param>
+            <param name="result"></param>
+            <param name="note"></param>
+            <param name="writeToPlatform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleLoggingClient.LoggingLogic.RelationalDatabase.PopulateRelationalDatabaseEntity(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Populate relational database object for logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="note"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MessageQueue.PopMessage(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.Boolean)">
+            <summary>
+            Log Message popped from message queue
+            </summary>
+            <param name="logLevel"></param>
+            <param name="message"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:MessageQueue.PopMessage(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.Boolean)">
+            <summary>
+            Log Message popped from message queue
+            </summary>
+            <param name="logLevel"></param>
+            <param name="message"></param>
+            <param name="note"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:MessageQueue.PushMessage(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.Boolean)">
+            <summary>
+            Log Message being sent to message queue
+            </summary>
+            <param name="logLevel"></param>
+            <param name="message"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:MessageQueue.PushMessage(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.Boolean)">
+            <summary>
+            Log Message being sent to message queue
+            </summary>
+            <param name="logLevel"></param>
+            <param name="message"></param>
+            <param name="note"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:MessageQueue.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Message Queue Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:MessageQueue.Error(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Message Queue Error logging
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="note"></param>
+            <remarks>Specific note from services</remarks>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+        </member>
+        <member name="M:MessageQueue.PopulateMessageQueueEntity(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Populate message queue object
+            </summary>
+            <param name="logLevel"></param>
+            <param name="popMessage"></param>
+            <param name="pushMessage"></param>
+            <param name="note"></param>
+            <param name="writeToPlatform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MessageQueue.PopulateMessageQueueEntity(SimpleLoggingInterfaces.Enums.EnumCollection.LogLevel,System.Exception,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Populate message queue object
+            </summary>
+            <param name="logLevel"></param>
+            <param name="exception"></param>
+            <param name="note"></param>
+            <param name="innerExceptionOnly"></param>
+            <param name="writeToPlatform"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

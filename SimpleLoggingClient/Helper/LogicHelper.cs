@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SimpleLoggingClient.Interfaces.LoggingInterfaces;
 using SimpleLoggingInterfaces.Interfaces;
 using System;
 using System.Text;
@@ -9,15 +10,22 @@ namespace SimpleLoggingClient.Helper
 {
     public class LogicHelper : ILogicHelper
     {
-        private readonly int _environmentLoggingLevel;
-        private readonly bool _isEncrypted;
+        private LogLevel _publishLoggingLevel;
+        private bool _isEncrypted;
 
-        public LogicHelper()
+        public LogicHelper(IInitializationInformation initializationInformation)
         {
-            _environmentLoggingLevel = Convert.ToInt32(Environment.GetEnvironmentVariable("Logging_Level"));
-            _isEncrypted = Convert.ToBoolean(Environment.GetEnvironmentVariable("Is_Encrypted"));
+            _publishLoggingLevel = initializationInformation.PublishLoggingLevel;
+            _isEncrypted = initializationInformation.EncryptMessages;
         }
 
+        /// <summary>
+        /// Send message to console (cloud logging)
+        /// </summary>
+        /// <param name="messageType"></param>
+        /// <param name="message"></param>
+        /// <param name="note"></param>
+        /// <param name="logToPlatform"></param>
         public void LogToPlatform(string messageType, string message, string note, bool logToPlatform)
         {
             if (logToPlatform)
@@ -33,6 +41,15 @@ namespace SimpleLoggingClient.Helper
                 Console.WriteLine(sb.ToString());
             }
         }
+
+        /// <summary>
+        /// Send message to console (cloud logging)
+        /// </summary>
+        /// <param name="messageType"></param>
+        /// <param name="request"></param>
+        /// <param name="response"></param>
+        /// <param name="note"></param>
+        /// <param name="logToPlatform"></param>
 
         public void LogToPlatform(string messageType, string request, string response, string note, bool logToPlatform)
         {
@@ -59,6 +76,14 @@ namespace SimpleLoggingClient.Helper
             }
         }
 
+        /// <summary>
+        /// Send message to console (cloud logging)
+        /// </summary>
+        /// <param name="messageType"></param>
+        /// <param name="exception"></param>
+        /// <param name="innerExceptionOnly"></param>
+        /// <param name="note"></param>
+        /// <param name="logToPlatform"></param>
         public void LogToPlatform(string messageType, Exception exception, bool innerExceptionOnly, string note, bool logToPlatform)
         {
             if (logToPlatform)
@@ -83,6 +108,11 @@ namespace SimpleLoggingClient.Helper
             }
         }
 
+        /// <summary>
+        /// Convert application object to json
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task<byte[]> MessageConversion(IApplicationEntity entity)
         {
             await Task.Run(() =>
@@ -94,6 +124,11 @@ namespace SimpleLoggingClient.Helper
             return new byte[0];
         }
 
+        /// <summary>
+        /// Convert message queue object to json
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task<byte[]> MessageConversion(IMessageQueueEntity entity)
         {
             await Task.Run(() =>
@@ -105,6 +140,11 @@ namespace SimpleLoggingClient.Helper
             return new byte[0];
         }
 
+        /// <summary>
+        /// Convert Internal/External transaction object to json
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task<byte[]> MessageConversion(ITransactionEntity entity)
         {
             await Task.Run(() =>
@@ -116,6 +156,11 @@ namespace SimpleLoggingClient.Helper
             return new byte[0];
         }
 
+        /// <summary>
+        /// Convert relational database object to json
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task<byte[]> MessageConversion(IRelationalDatabaseEntity entity)
         {
             await Task.Run(() =>
@@ -127,6 +172,11 @@ namespace SimpleLoggingClient.Helper
             return new byte[0];
         }
 
+        /// <summary>
+        /// Encode and optionally encrypt messages before sending to queue
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public byte[] MessageFormatting(string message)
         {
             var encodedMessage = Encoding.UTF8.GetBytes(message);
@@ -139,27 +189,32 @@ namespace SimpleLoggingClient.Helper
             return encodedMessage;
         }
 
+        /// <summary>
+        /// Determine if the
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <returns></returns>
         public bool ShouldSendToQueue(LogLevel logLevel)
         {
-            if (_environmentLoggingLevel > -1 || _environmentLoggingLevel != Convert.ToInt32(LogLevel.Off))
+            if ((int)_publishLoggingLevel > -1 || (int)_publishLoggingLevel != Convert.ToInt32(LogLevel.Off))
             {
                 switch (logLevel)
                 {
                     case LogLevel.Debug:
-                        if (_environmentLoggingLevel == Convert.ToInt32(LogLevel.Debug) ||
-                            _environmentLoggingLevel == Convert.ToInt32(LogLevel.Info) ||
-                            _environmentLoggingLevel == Convert.ToInt32(LogLevel.Error))
+                        if (_publishLoggingLevel == LogLevel.Debug ||
+                            _publishLoggingLevel == LogLevel.Info ||
+                            _publishLoggingLevel == LogLevel.Error)
                         { return true; }
                         break;
 
                     case LogLevel.Info:
-                        if (_environmentLoggingLevel == Convert.ToInt32(LogLevel.Info) ||
-                            _environmentLoggingLevel == Convert.ToInt32(LogLevel.Error))
+                        if (_publishLoggingLevel == LogLevel.Info ||
+                            _publishLoggingLevel == LogLevel.Error)
                         { return true; }
                         break;
 
                     case LogLevel.Error:
-                        if (_environmentLoggingLevel == Convert.ToInt32(LogLevel.Error))
+                        if (_publishLoggingLevel == LogLevel.Error)
                         { return true; }
                         break;
 

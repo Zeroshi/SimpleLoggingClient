@@ -1,4 +1,5 @@
 ﻿using SimpleLoggingClient.Helper;
+using SimpleLoggingClient.Interfaces.LoggingInterfaces;
 using SimpleLoggingClient.LoggingEntities;
 using SimpleLoggingClient.LoggingInterfaces.Dao;
 using SimpleLoggingClient.LoggingInterfaces.Logic;
@@ -10,21 +11,28 @@ namespace SimpleLoggingClient.LoggingLogic
 {
     public class RelationalDatabase : IRelationalDatabase
     {
-        private readonly ILogicHelper _logicHelper;
         private readonly IQueueMessenger _queueMessenger;
         private readonly string _applicationName;
+        private ILogicHelper _logicHelper;
 
         private const string QUERY_MESSAGE = "Query Message";
         private const string RESULT_MESSAGE = "Result Message";
         private const string DATABASE_ERROR = "Database Error";
 
-        public RelationalDatabase(string applicationName, Enums.Enums.MessageQueueType messageQueueType, ILogicHelper logicHelper)
+        public RelationalDatabase(IInitializationInformation initializationInformation)
         {
-            _applicationName = applicationName;
-            _logicHelper = logicHelper;
-            _queueMessenger = new MessageRoutingType { }.MessageQueueSelection(messageQueueType);
+            _logicHelper = new LogicHelper(initializationInformation);
+            _applicationName = initializationInformation.ApplicationName;
+            _queueMessenger = new MessageRoutingType { }.MessageQueueSelection(initializationInformation);
         }
 
+        /// <summary>
+        /// Relation Database Error logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="exception"></param>
+        /// <param name="innerExceptionOnly"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Error(EnumCollection.LogLevel logLevel, Exception exception, bool innerExceptionOnly, bool writeToPlatform)
         {
             try
@@ -45,6 +53,15 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Relation Database Error logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="exception"></param>
+        /// <param name="note"></param>
+        /// <remarks>Specific note from services</remarks>
+        /// <param name="innerExceptionOnly"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Error(EnumCollection.LogLevel logLevel, Exception exception, string note, bool innerExceptionOnly, bool writeToPlatform)
         {
             try
@@ -65,6 +82,12 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Log query
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="query"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Query(EnumCollection.LogLevel logLevel, string query, bool writeToPlatform)
         {
             try
@@ -85,6 +108,13 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Log query
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="query"></param>
+        /// <param name="note"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Query(EnumCollection.LogLevel logLevel, string query, string note, bool writeToPlatform)
         {
             try
@@ -105,6 +135,12 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Log database query result
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="result"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Result(EnumCollection.LogLevel logLevel, string result, bool writeToPlatform)
         {
             try
@@ -125,6 +161,13 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Log database query result
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="result"></param>
+        /// <param name="note"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Result(EnumCollection.LogLevel logLevel, string result, string note, bool writeToPlatform)
         {
             try
@@ -145,6 +188,15 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Populate relational database object for logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="query"></param>
+        /// <param name="result"></param>
+        /// <param name="note"></param>
+        /// <param name="writeToPlatform"></param>
+        /// <returns></returns>
         public IRelationalDatabaseEntity PopulateRelationalDatabaseEntity(EnumCollection.LogLevel logLevel, string query, string result, string note, bool writeToPlatform)
         {
             IRelationalDatabaseEntity messageQueue = new RelationalDatabaseEntity();
@@ -159,6 +211,15 @@ namespace SimpleLoggingClient.LoggingLogic
             return messageQueue;
         }
 
+        /// <summary>
+        /// Populate relational database object for logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="exception"></param>
+        /// <param name="note"></param>
+        /// <param name="innerExceptionOnly"></param>
+        /// <param name="writeToPlatform"></param>
+        /// <returns></returns>
         public IRelationalDatabaseEntity PopulateRelationalDatabaseEntity(EnumCollection.LogLevel logLevel, Exception exception, string note, bool innerExceptionOnly, bool writeToPlatform)
         {
             IRelationalDatabaseEntity messageQueue = new RelationalDatabaseEntity();

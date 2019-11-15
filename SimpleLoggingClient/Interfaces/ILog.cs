@@ -1,5 +1,4 @@
 ﻿using SimpleLoggingClient.LoggingInterfaces.Logic;
-using static SimpleLoggingClient.Enums.Enums;
 
 namespace SimpleLoggingClient.LoggingInterfaces
 {

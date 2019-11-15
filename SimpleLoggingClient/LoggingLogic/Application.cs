@@ -1,4 +1,5 @@
 ﻿using SimpleLoggingClient.Helper;
+using SimpleLoggingClient.Interfaces.LoggingInterfaces;
 using SimpleLoggingClient.LoggingEntities;
 using SimpleLoggingClient.LoggingInterfaces.Dao;
 using SimpleLoggingClient.LoggingInterfaces.Logic;
@@ -10,20 +11,27 @@ namespace SimpleLoggingClient.LoggingLogic
 {
     public class Application : IApplication
     {
-        private ILogicHelper _logicHelper;
         private IQueueMessenger _queueMessenger;
         private readonly string _applicationName;
+        private ILogicHelper _logicHelper;
 
         private const string APPLICATION_MESSAGE = "Application Message";
         private const string APPLICATION_ERROR = "Application Error";
 
-        public Application(string applicationName, Enums.Enums.MessageQueueType messageQueueType, ILogicHelper logHelper)
+        public Application(IInitializationInformation initializationInformation)
         {
-            _applicationName = applicationName;
-            _logicHelper = logHelper;
-            _queueMessenger = new MessageRoutingType { }.MessageQueueSelection(messageQueueType);
+            _logicHelper = new LogicHelper(initializationInformation);
+            _applicationName = initializationInformation.ApplicationName;
+            _queueMessenger = new MessageRoutingType { }.MessageQueueSelection(initializationInformation);
         }
 
+        /// <summary>
+        /// Application Error logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="exception"></param>
+        /// <param name="innerExceptionOnly"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Error(LogLevel logLevel, Exception exception, bool innerExceptionOnly, bool writeToPlatform)
         {
             try
@@ -44,6 +52,15 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Application Error logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="exception"></param>
+        /// <param name="note"></param>
+        /// <remarks>Specific note from services</remarks>
+        /// <param name="innerExceptionOnly"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Error(LogLevel logLevel, Exception exception, string note, bool innerExceptionOnly, bool writeToPlatform)
         {
             try
@@ -64,6 +81,13 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Application message logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="message"></param>
+        /// <param name="currentMethod"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Message(LogLevel logLevel, string message, string currentMethod, bool writeToPlatform)
         {
             try
@@ -84,6 +108,14 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Application message logging
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="message"></param>
+        /// <param name="note"></param>
+        /// <param name="currentMethod"></param>
+        /// <param name="writeToPlatform"></param>
         public async void Message(LogLevel logLevel, string message, string note, string currentMethod, bool writeToPlatform)
         {
             try
@@ -104,6 +136,15 @@ namespace SimpleLoggingClient.LoggingLogic
             }
         }
 
+        /// <summary>
+        /// Populate application object
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="writeToPlatform"></param>
+        /// <param name="logLevel"></param>
+        /// <param name="currentMethod"></param>
+        /// <param name="note"></param>
+        /// <returns></returns>
         public IApplicationEntity PopulateApplicationEntity(string message, bool writeToPlatform, LogLevel logLevel, string currentMethod, string note)
         {
             IApplicationEntity application = new ApplicationEntity();
@@ -118,6 +159,15 @@ namespace SimpleLoggingClient.LoggingLogic
             return application;
         }
 
+        /// <summary>
+        /// Populate application object
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <param name="innerExceptionOnly"></param>
+        /// <param name="writeToPlatform"></param>
+        /// <param name="logLevel"></param>
+        /// <param name="note"></param>
+        /// <returns></returns>
         public IApplicationEntity PopulateApplicationEntity(Exception exception, bool innerExceptionOnly, bool writeToPlatform, LogLevel logLevel, string note)
         {
             IApplicationEntity application = new ApplicationEntity();
