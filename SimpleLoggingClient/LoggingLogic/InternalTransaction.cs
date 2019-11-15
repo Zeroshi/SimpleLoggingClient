@@ -57,8 +57,8 @@ namespace SimpleLoggingClient.LoggingLogic
         /// </summary>
         /// <param name="logLevel"></param>
         /// <param name="exception"></param>
-        /// <param name="note"></param>
-        /// <remarks>Specific note from services</remarks>
+        /// <param name="request"></param>
+        /// <param name="response"></param>
         /// <param name="innerExceptionOnly"></param>
         /// <param name="writeToPlatform"></param>
         public async void Error(LogLevel logLevel, Exception exception, string request, string response, bool innerExceptionOnly, bool writeToPlatform)

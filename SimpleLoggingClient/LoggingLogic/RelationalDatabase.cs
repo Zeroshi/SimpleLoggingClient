@@ -31,7 +31,6 @@ namespace SimpleLoggingClient.LoggingLogic
         /// </summary>
         /// <param name="logLevel"></param>
         /// <param name="exception"></param>
-        /// <param name="note"></param>
         /// <param name="innerExceptionOnly"></param>
         /// <param name="writeToPlatform"></param>
         public async void Error(EnumCollection.LogLevel logLevel, Exception exception, bool innerExceptionOnly, bool writeToPlatform)
