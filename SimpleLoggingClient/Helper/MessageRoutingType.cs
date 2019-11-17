@@ -15,7 +15,7 @@ namespace SimpleLoggingClient.Helper
         {
             if (initializationInformation.MessageQueueType == MessageQueueType.RabbitMQ)
             {
-                return new Dao.RabbitMQ(initializationInformation);
+                return new Dao.RabbitMq(initializationInformation);
             }
             if (initializationInformation.MessageQueueType == MessageQueueType.GcpMQ)
             {

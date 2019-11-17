@@ -1,7 +1,9 @@
-﻿namespace SimpleLoggingClient.LoggingInterfaces.Dao
+﻿using System.Threading.Tasks;
+
+namespace SimpleLoggingClient.LoggingInterfaces.Dao
 {
     public interface IQueueMessenger
     {
-        void SendMessage(byte[] message);
+        Task<bool> SendMessage(byte[] message);
     }
 }

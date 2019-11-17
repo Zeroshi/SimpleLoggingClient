@@ -10,11 +10,11 @@
     <RepositoryUrl>https://github.com/Zeroshi/SimpleLoggingClient</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Simple, Logging, Client, RabbitMQ, Enterprise, Cloud</PackageTags>
-    <PackageReleaseNotes>Major redesign for simplicity and maintainability. Evironmental variables removed as to not dictate how the application should store its information.
+    <PackageReleaseNotes>Added Queue and Exchange creation for RabbitMQ
 
 Supports GCP and RabbitMQ - service has the ability to choose which messaging service it would like to connect</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0</Version>
+    <Version>2.2.3</Version>
     <NeutralLanguage></NeutralLanguage>
     <AssemblyVersion>1.3.0.0</AssemblyVersion>
     <FileVersion>1.3.0.0</FileVersion>

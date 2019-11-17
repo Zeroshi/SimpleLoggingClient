@@ -43,8 +43,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var relationalDatabase = PopulateRelationalDatabaseEntity(logLevel, exception, null, innerExceptionOnly, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(relationalDatabase);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(relationalDatabase);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -72,8 +72,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var relationalDatabase = PopulateRelationalDatabaseEntity(logLevel, exception, note, innerExceptionOnly, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(relationalDatabase);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(relationalDatabase);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -98,8 +98,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var relationalDatabase = PopulateRelationalDatabaseEntity(logLevel, query, null, null, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(relationalDatabase);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(relationalDatabase);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -125,8 +125,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var relationalDatabase = PopulateRelationalDatabaseEntity(logLevel, query, null, null, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(relationalDatabase);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(relationalDatabase);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -151,8 +151,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var relationalDatabase = PopulateRelationalDatabaseEntity(logLevel, null, result, null, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(relationalDatabase);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(relationalDatabase);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -178,8 +178,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var relationalDatabase = PopulateRelationalDatabaseEntity(logLevel, null, result, note, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(relationalDatabase);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(relationalDatabase);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)

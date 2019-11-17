@@ -4,6 +4,7 @@ using SimpleLoggingClient.Entities.LoggingInformation;
 using SimpleLoggingClient.Helper;
 using SimpleLoggingClient.Interfaces.LoggingInterfaces;
 using SimpleLoggingClient.LoggingEntities;
+using SimpleLoggingClient.LoggingInterfaces;
 using SimpleLoggingClient.LoggingInterfaces.Dao;
 using SimpleLoggingClient.LoggingInterfaces.Logic;
 using SimpleLoggingClient.LoggingLogic;
@@ -25,20 +26,28 @@ namespace SimpleLoggingClient.Test
         private IRelationalDatabase _relationalDatabase;
         private IQueueMessenger _queueMessenger;
         private ILogicHelper _logicHelper;
+        private IInitializationInformation _initializationInformation;
 
         public SimpleLoggingTests()
         {
             Mock<IQueueMessenger> queueMessenger = new Mock<IQueueMessenger>();
             queueMessenger.Setup(x => x.SendMessage(It.IsAny<byte[]>()));
             _queueMessenger = queueMessenger.Object;
-            IInitializationInformation initializationInformation = new InitialilizationInformation(MessageQueueType.RabbitMQ);
-            initializationInformation.ApplicationName = APPLICATION_NAME;
-            _logicHelper = new LogicHelper(initializationInformation);
-            _internalTransaction = new InternalTransaction(initializationInformation);
-            _externalTransaction = new ExternalTransaction(initializationInformation);
-            _application = new Application(initializationInformation);
-            _messageQueue = new MessageQueue(initializationInformation);
-            _relationalDatabase = new RelationalDatabase(initializationInformation);
+            _initializationInformation = new InitialilizationInformation(MessageQueueType.RabbitMQ);
+            _initializationInformation.RabbitMq.ExchangeName = "Testing";
+            _initializationInformation.RabbitMq.HostName = "localHost";
+            _initializationInformation.RabbitMq.Password = "guest";
+            _initializationInformation.RabbitMq.UserName = "guest";
+            _initializationInformation.RabbitMq.PortNumber = 5672;
+            _initializationInformation.RabbitMq.QueueName = "SimpleLoggingClientTest";
+            _initializationInformation.RabbitMq.RoutingKey = "key";
+            _initializationInformation.ApplicationName = APPLICATION_NAME;
+            _logicHelper = new LogicHelper(_initializationInformation);
+            _internalTransaction = new InternalTransaction(_initializationInformation);
+            _externalTransaction = new ExternalTransaction(_initializationInformation);
+            _application = new Application(_initializationInformation);
+            _messageQueue = new MessageQueue(_initializationInformation);
+            _relationalDatabase = new RelationalDatabase(_initializationInformation);
         }
 
         [TestMethod]
@@ -468,5 +477,35 @@ namespace SimpleLoggingClient.Test
             Assert.AreEqual(expected.OnlyInnerException, result.OnlyInnerException);
             Assert.AreEqual(expected.WrittenToPlatform, result.WrittenToPlatform);
         }
+
+        //[TestMethod]
+        //public void MessageRoutingTypeRabbitMQ()
+        //{
+        //    _initializationInformation.MessageQueueType = MessageQueueType.RabbitMQ;
+        //    var messageType = new MessageRoutingType();
+        //    var result = messageType.MessageQueueSelection(_initializationInformation);
+
+        //    Assert.AreEqual(result.GetType(), new Dao.RabbitMq(_initializationInformation).GetType());
+        //}
+
+        //[TestMethod]
+        //public void MessageRoutingTypeGcpMQ()
+        //{
+        //    _initializationInformation.MessageQueueType = MessageQueueType.GcpMQ;
+        //    var messageType = new MessageRoutingType();
+        //    var result = messageType.MessageQueueSelection(_initializationInformation);
+
+        //    Assert.AreEqual(result.GetType(), new GcpMqEntity().GetType());
+        //}
+
+        //[TestMethod]
+        //public void ApplicationTest()
+        //{
+        //    _initializationInformation.MessageQueueType = MessageQueueType.RabbitMQ;
+        //    ILog logger = new SimpleLoggingClient.Log("LoggingTestAppConsole", "localHost", "guest", "guest", "LoggingTestAppConsole",
+        //        5672, "ExhangeName", "Key", "QueueName", LogLevel.Debug, true);
+
+        //    logger.Application.Message(LogLevel.Error, "This is a test", "Application Test", true);
+        //}
     }
 }

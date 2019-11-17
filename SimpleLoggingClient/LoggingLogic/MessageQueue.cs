@@ -40,8 +40,8 @@ public class MessageQueue : IMessageQueue
             {
                 var messageQueue = PopulateMessageQueueEntity(logLevel, message, null, null, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(messageQueue);
-                _queueMessenger.SendMessage(queueMessage);
+                var queueMessage = _logicHelper.MessageConversion(messageQueue);
+                await _queueMessenger.SendMessage(queueMessage);
             }
         }
         catch (Exception ex)
@@ -67,8 +67,8 @@ public class MessageQueue : IMessageQueue
             {
                 var messageQueue = PopulateMessageQueueEntity(logLevel, message, null, note, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(messageQueue);
-                _queueMessenger.SendMessage(queueMessage);
+                var queueMessage = _logicHelper.MessageConversion(messageQueue);
+                await _queueMessenger.SendMessage(queueMessage);
             }
         }
         catch (Exception ex)
@@ -93,8 +93,8 @@ public class MessageQueue : IMessageQueue
             {
                 var messageQueue = PopulateMessageQueueEntity(logLevel, null, message, null, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(messageQueue);
-                _queueMessenger.SendMessage(queueMessage);
+                var queueMessage = _logicHelper.MessageConversion(messageQueue);
+                await _queueMessenger.SendMessage(queueMessage);
             }
         }
         catch (Exception ex)
@@ -120,8 +120,8 @@ public class MessageQueue : IMessageQueue
             {
                 var messageQueue = PopulateMessageQueueEntity(logLevel, null, message, note, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(messageQueue);
-                _queueMessenger.SendMessage(queueMessage);
+                var queueMessage = _logicHelper.MessageConversion(messageQueue);
+                await _queueMessenger.SendMessage(queueMessage);
             }
         }
         catch (Exception ex)
@@ -147,8 +147,8 @@ public class MessageQueue : IMessageQueue
             {
                 var messageQueue = PopulateMessageQueueEntity(logLevel, exception, null, innerExceptionOnly, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(messageQueue);
-                _queueMessenger.SendMessage(queueMessage);
+                var queueMessage = _logicHelper.MessageConversion(messageQueue);
+                await _queueMessenger.SendMessage(queueMessage);
             }
         }
         catch (Exception ex)
@@ -176,8 +176,8 @@ public class MessageQueue : IMessageQueue
             {
                 var messageQueue = PopulateMessageQueueEntity(logLevel, exception, note, innerExceptionOnly, writeToPlatform);
 
-                var queueMessage = await _logicHelper.MessageConversion(messageQueue);
-                _queueMessenger.SendMessage(queueMessage);
+                var queueMessage = _logicHelper.MessageConversion(messageQueue);
+                await _queueMessenger.SendMessage(queueMessage);
             }
         }
         catch (Exception ex)

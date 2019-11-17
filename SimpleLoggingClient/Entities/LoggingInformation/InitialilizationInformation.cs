@@ -5,8 +5,8 @@ namespace SimpleLoggingClient.Entities.LoggingInformation
 {
     public class InitialilizationInformation : IInitializationInformation
     {
-        public GcpMq GcpMq { get; set; }
-        public RabbitMq RabbitMq { get; set; }
+        public GcpMqEntity GcpMq { get; set; }
+        public RabbitMqEntity RabbitMq { get; set; }
         public MessageQueueType MessageQueueType { get; set; }
         public string ApplicationName { get; set; }
         public LogLevel PublishLoggingLevel { get; set; }
@@ -14,8 +14,9 @@ namespace SimpleLoggingClient.Entities.LoggingInformation
 
         public InitialilizationInformation(MessageQueueType messageQueueType)
         {
-            GcpMq = new GcpMq();
-            RabbitMq = new RabbitMq();
+            GcpMq = new GcpMqEntity();
+            RabbitMq = new RabbitMqEntity();
+            MessageQueueType = messageQueueType;
         }
     }
 }

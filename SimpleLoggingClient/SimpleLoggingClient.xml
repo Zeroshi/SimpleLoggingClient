@@ -4,6 +4,19 @@
         <name>SimpleLoggingClient</name>
     </assembly>
     <members>
+        <member name="M:SimpleLoggingClient.Dao.GCPMQ.SendMessage(System.Byte[])">
+            <summary>
+            Send message to GCP Pub
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:SimpleLoggingClient.Dao.RabbitMq.SendMessage(System.Byte[])">
+            <summary>
+            Send message to RabbitMQ queue
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
         <member name="M:SimpleLoggingClient.Helper.LogicHelper.LogToPlatform(System.String,System.String,System.String,System.Boolean)">
             <summary>
             Send message to console (cloud logging)
