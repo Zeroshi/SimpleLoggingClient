@@ -5,8 +5,8 @@ namespace SimpleLoggingClient.Interfaces.LoggingInterfaces
 {
     public interface IInitializationInformation
     {
-        GcpMq GcpMq { get; set; }
-        RabbitMq RabbitMq { get; set; }
+        GcpMqEntity GcpMq { get; set; }
+        RabbitMqEntity RabbitMq { get; set; }
         MessageQueueType MessageQueueType { get; set; }
         string ApplicationName { get; set; }
         LogLevel PublishLoggingLevel { get; set; }

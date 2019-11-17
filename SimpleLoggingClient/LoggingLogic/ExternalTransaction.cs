@@ -41,8 +41,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var transaction = PopulateTransactionEntity(logLevel, exception, null, null, null, null, innerExceptionOnly, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(transaction);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(transaction);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -70,8 +70,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var transaction = PopulateTransactionEntity(logLevel, exception, request, response, null, null, innerExceptionOnly, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(transaction);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(transaction);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -100,8 +100,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var transaction = PopulateTransactionEntity(logLevel, exception, request, response, uri, null, innerExceptionOnly, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(transaction);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(transaction);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -130,8 +130,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var transaction = PopulateTransactionEntity(logLevel, exception, request, response, uri, note, innerExceptionOnly, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(transaction);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(transaction);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -157,8 +157,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var transaction = PopulateTransactionEntity(logLevel, request, response, null, null, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(transaction);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(transaction);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -185,8 +185,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var transaction = PopulateTransactionEntity(logLevel, request, response, uri, null, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(transaction);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(transaction);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -214,8 +214,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var transaction = PopulateTransactionEntity(logLevel, request, response, uri, note, writeToPlatform);
 
-                    var queueMessage = await _logicHelper.MessageConversion(transaction);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(transaction);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)

@@ -113,15 +113,10 @@ namespace SimpleLoggingClient.Helper
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task<byte[]> MessageConversion(IApplicationEntity entity)
+        public byte[] MessageConversion(IApplicationEntity entity)
         {
-            await Task.Run(() =>
-            {
-                var json = JsonConvert.SerializeObject(entity);
-                return MessageFormatting(json);
-            });
-
-            return new byte[0];
+            var json = JsonConvert.SerializeObject(entity);
+            return MessageFormatting(json);
         }
 
         /// <summary>
@@ -129,15 +124,10 @@ namespace SimpleLoggingClient.Helper
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task<byte[]> MessageConversion(IMessageQueueEntity entity)
+        public byte[] MessageConversion(IMessageQueueEntity entity)
         {
-            await Task.Run(() =>
-            {
-                var json = JsonConvert.SerializeObject(entity);
-                return MessageFormatting(json);
-            });
-
-            return new byte[0];
+            var json = JsonConvert.SerializeObject(entity);
+            return MessageFormatting(json);
         }
 
         /// <summary>
@@ -145,15 +135,10 @@ namespace SimpleLoggingClient.Helper
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task<byte[]> MessageConversion(ITransactionEntity entity)
+        public byte[] MessageConversion(ITransactionEntity entity)
         {
-            await Task.Run(() =>
-            {
-                var json = JsonConvert.SerializeObject(entity);
-                return MessageFormatting(json);
-            });
-
-            return new byte[0];
+            var json = JsonConvert.SerializeObject(entity);
+            return MessageFormatting(json);
         }
 
         /// <summary>
@@ -161,15 +146,10 @@ namespace SimpleLoggingClient.Helper
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task<byte[]> MessageConversion(IRelationalDatabaseEntity entity)
+        public byte[] MessageConversion(IRelationalDatabaseEntity entity)
         {
-            await Task.Run(() =>
-            {
-                var json = JsonConvert.SerializeObject(entity);
-                return MessageFormatting(json);
-            });
-
-            return new byte[0];
+            var json = JsonConvert.SerializeObject(entity);
+            return MessageFormatting(json);
         }
 
         /// <summary>
@@ -198,7 +178,7 @@ namespace SimpleLoggingClient.Helper
         {
             if ((int)_publishLoggingLevel > -1 || (int)_publishLoggingLevel != Convert.ToInt32(LogLevel.Off))
             {
-                switch (logLevel)
+                switch (_publishLoggingLevel)
                 {
                     case LogLevel.Debug:
                         if (_publishLoggingLevel == LogLevel.Debug ||

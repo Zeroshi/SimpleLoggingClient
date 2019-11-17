@@ -6,28 +6,57 @@ using System.Threading.Tasks;
 
 namespace SimpleLoggingClient.Dao
 {
-    public class RabbitMQ : IQueueMessenger
+    public class RabbitMq : IQueueMessenger
     {
         private string ExchangeName { get; set; }
         private string RoutingKey { get; set; }
-        private string Queue { get; set; }
 
-        private ConnectionFactory _factory;
+        private ConnectionFactory _connectionfactory;
 
-        public RabbitMQ(IInitializationInformation initializationInformation)
+        public RabbitMq(IInitializationInformation initializationInformation)
         {
-            _factory = new ConnectionFactory()
+            _connectionfactory = new ConnectionFactory()
             {
                 HostName = initializationInformation.RabbitMq.HostName,
                 UserName = initializationInformation.RabbitMq.UserName,
                 Password = initializationInformation.RabbitMq.Password,
-                VirtualHost = initializationInformation.RabbitMq.VirtualHost,
-                Port = initializationInformation.RabbitMq.PortNumber
+                Port = initializationInformation.RabbitMq.PortNumber,
+                DispatchConsumersAsync = true
             };
 
             ExchangeName = initializationInformation.RabbitMq.ExchangeName;
             RoutingKey = initializationInformation.RabbitMq.RoutingKey;
-            Queue = initializationInformation.RabbitMq.QueueName;
+
+            RabbitMQSetup(initializationInformation);
+        }
+
+        private void RabbitMQSetup(IInitializationInformation initializationInformation)
+        {
+            var connection = _connectionfactory.CreateConnection();
+            var model = connection.CreateModel();
+
+            try
+            {
+                model.ExchangeDeclare(initializationInformation.RabbitMq.ExchangeName, ExchangeType.Direct);
+                Console.WriteLine("Creating Exchange: " + initializationInformation.RabbitMq.ExchangeName);
+
+                model.QueueDeclare(initializationInformation.RabbitMq.QueueName, true, false, false, null);
+                Console.WriteLine("Creating Queue: " + initializationInformation.RabbitMq.QueueName);
+
+                model.QueueBind(initializationInformation.RabbitMq.QueueName, initializationInformation.RabbitMq.ExchangeName,
+                    initializationInformation.RabbitMq.RoutingKey);
+                Console.WriteLine(string.Format("Creating Binding between Queue: {0} and Exchange: {1} using key: {2}",
+                    initializationInformation.RabbitMq.QueueName, initializationInformation.RabbitMq.ExchangeName,
+                    initializationInformation.RabbitMq.RoutingKey));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         /// <summary>
@@ -35,24 +64,29 @@ namespace SimpleLoggingClient.Dao
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public async void SendMessage(byte[] message)
+        public async Task<bool> SendMessage(byte[] message)
         {
+            return await Task.Run(() => SendLogic(message));
+        }
+
+        private bool SendLogic(byte[] message)
+        {
+            var connection = _connectionfactory.CreateConnection();
+            var model = connection.CreateModel();
+
             try
             {
-                await Task.Run(() =>
-                 {
-                     using (var connection = _factory.CreateConnection())
-                     {
-                         using (var channel = connection.CreateModel())
-                         {
-                             channel.BasicPublish(ExchangeName, RoutingKey, true, null, message);
-                         }
-                     }
-                 });
+                model.BasicPublish(ExchangeName, RoutingKey, true, null, message);
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Logging failed: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                connection.Close();
             }
         }
     }

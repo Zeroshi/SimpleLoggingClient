@@ -3,6 +3,7 @@ using SimpleLoggingClient.Helper;
 using SimpleLoggingClient.Interfaces.LoggingInterfaces;
 using SimpleLoggingClient.LoggingInterfaces.Dao;
 using System;
+using System.Threading.Tasks;
 
 namespace SimpleLoggingClient.Dao
 {
@@ -25,7 +26,12 @@ namespace SimpleLoggingClient.Dao
         /// Send message to GCP Pub
         /// </summary>
         /// <param name="message"></param>
-        public async void SendMessage(byte[] message)
+        public async Task<bool> SendMessage(byte[] message)
+        {
+            return await Task.Run(() => SendLogic(message));
+        }
+
+        private async Task<bool> SendLogic(byte[] message)
         {
             try
             {
@@ -33,10 +39,12 @@ namespace SimpleLoggingClient.Dao
                 var confirmation = await publisher.PublishAsync(message);
 
                 _LogicHelper.LogToPlatform(MESSAGE_PUBLISHED, confirmation, null, true);
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("GCP Pub Error: " + ex.Message);
+                return false;
             }
         }
     }

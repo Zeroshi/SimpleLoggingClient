@@ -42,8 +42,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var application = PopulateApplicationEntity(exception, innerExceptionOnly, writeToPlatform, logLevel, null);
 
-                    var queueMessage = await _logicHelper.MessageConversion(application);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(application);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -71,8 +71,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var application = PopulateApplicationEntity(exception, innerExceptionOnly, writeToPlatform, logLevel, note);
 
-                    var queueMessage = await _logicHelper.MessageConversion(application);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(application);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -98,8 +98,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var application = PopulateApplicationEntity(message, writeToPlatform, logLevel, currentMethod, null);
 
-                    var queueMessage = await _logicHelper.MessageConversion(application);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(application);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
@@ -126,8 +126,8 @@ namespace SimpleLoggingClient.LoggingLogic
                 {
                     var application = PopulateApplicationEntity(message, writeToPlatform, logLevel, currentMethod, note);
 
-                    var queueMessage = await _logicHelper.MessageConversion(application);
-                    _queueMessenger.SendMessage(queueMessage);
+                    var queueMessage = _logicHelper.MessageConversion(application);
+                    await _queueMessenger.SendMessage(queueMessage);
                 }
             }
             catch (Exception ex)
