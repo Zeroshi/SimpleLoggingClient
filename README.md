@@ -42,6 +42,7 @@ Relational Databases
 -   Error
 
 **Design**:
+![Simple Logging Client Design](https://1drv.ms/u/s!AokikV_R4sMl6Hr1aFuhTilCUhdr?e=PEgbJe)
 
 Fig. 1. Simple Logging Client Design. An application references
 SimpleLoggingClient and sets up the queue information needed
