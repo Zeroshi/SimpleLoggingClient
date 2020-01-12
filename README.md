@@ -42,7 +42,7 @@ Relational Databases
 -   Error
 
 **Design**:
-![Simple Logging Client Design](https://cgufeg.ch.files.1drv.com/y4p6LF_6usnddLDJ8y-STbBSJ-aCcd4TXWu7P9HF0bZt6J4xr4JiNlJkmtiyIYuxrUBQ307h3_gLgU1fWb_YFFLpTqBKEVxZqU_CPCedoudhnKTTw81dUtDgfGVaek5xgY2xrvKIj8RAw5ItL9iRCYCntMqijYmCy_ngYKTJR1lMkojOR7rVQIJzPpr5oS4oaREh95-asab30DylI9VlMTn4g/SimpleLoggingClient.gif)
+![Simple Logging Client Design](https://cgufeg.ch.files.1drv.com/y4mO_Yq_sKBabT4egaSlQdg5wMG1RBGXtv1UUwy-lW-oiVLg47dKLHRh5ippTsSFt1SOT4QZ6lQ0xNnXuvdzZ5byJ6DZV2Ga3oIO0GXBs21hAE2-CKPz8V_UBpc_k2TwSJDwNcXN9qUQtW0WeP25IvtWW5OIlOWhSQBq-xoNCXCU3sp400XwEgDPKifiEUJmkCs8oP2IZuNba9pwKKIDKPMrQ?width=1353&height=696&cropmode=none)
 
 Fig. 1. Simple Logging Client Design. An application references
 SimpleLoggingClient and sets up the queue information needed
