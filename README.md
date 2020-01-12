@@ -1,9 +1,53 @@
-# SimpleLoggingClient
+**Simple Logging Client**
 
-## Issue:
-Logging tools primarly log to console, DB, or a file. The issue is adding overhead to the application itself. When an application continually logs to a DB or file, there is a decent amount of overhead. The overhead is significant when parcing strings for log into a relational database. 
-## Solution:
-SimpleLoggingClient logs items to the console based on a boolean value that is populated during development. The LogLevel determines if a message should be sent to a queue. Currently, we are support RabbitMQ. By sending messages to the queue, the overhead is removed and a highly availble logging service can be implemented to parse, save, and analyze as needed. 
-## Future:
-Additional MQ support will be added. 
-Listener and Logging Service will be built in Docker containers. 
+**Issue**:
+
+Logging is a daunting task to standardize. Newer developers may attempt to log
+the wrong information which results in missing items when troubleshooting.
+Logging can also allocate up to 10% of the resources when parsing objects to
+place in a tabular database.
+
+**Solution**:
+
+SimpleLoggingClient creates the signature for:
+
+Application:
+
+-   Log
+
+-   Error
+
+External Transaction:
+
+-   Transaction
+
+-   Error
+
+Internal Transactions:
+
+-   Transaction
+
+-   Error
+
+Message Queues
+
+-   Messages
+
+-   Error
+
+Relational Databases
+
+-   Transaction
+
+-   Error
+
+**Design**:
+
+Fig. 1. Simple Logging Client Design. An application references
+SimpleLoggingClient and sets up the queue information needed
+(Username/Password). Logging is handled as a single object as to be used with
+dependency injection (DI). The log/error is sent to the queue. A separate
+application—that is currently in development—will gather messages from the
+queue. The messages logic path will be determined by type. The messages will be
+broken into transactions and stored into the proper database/tables.
+
